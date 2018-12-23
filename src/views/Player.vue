@@ -1,6 +1,7 @@
 <template>
     <div>
         <p>Player {{ this.obj.firstName }}</p>
+        <PlayerCard :playerId="this.$route.params.id"></PlayerCard>
         <PlayerBoxScore></PlayerBoxScore>
     </div>
 </template>
