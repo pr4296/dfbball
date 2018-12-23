@@ -1,6 +1,6 @@
 <template>
     <div class="card boxShadow">
-        <p class="card-header">Today's Games</p>
+        <p class="card-header">Schedule</p>
         <div class="gameRow" 
             v-for="(game, index) in this.games" :key="index"
             @click="goToGame(game.id)"

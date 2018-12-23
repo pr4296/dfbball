@@ -1,6 +1,6 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-$creds = json_decode(file_get_contents('../mysql_auth.json'), true);
+$creds = json_decode(file_get_contents('../auth/mysql_auth.json'), true);
 $host = $creds['host'];
 $user = $creds['user'];
 $passwd = $creds['passwd'];
