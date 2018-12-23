@@ -1,2 +1,2 @@
-# 🏀dfbball
-[https://dfbball.com](dfbball.com) - Daily Fantasy NBA Basketball
+# :basketball: dfbball
+[dfbball.com](https://dfbball.com) - Daily Fantasy NBA Basketball
