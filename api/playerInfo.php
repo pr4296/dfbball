@@ -10,11 +10,11 @@ $mysqli = new mysqli($host, $user, $passwd, $db);
 
 $and = "";
 $id = "";
-if (isset($_GET['playerId'])) {
+if (isset($_GET['id'])) {
     
-    $id = $_GET['playerId'];
+    $id = $_GET['id'];
     if (is_numeric($id)){
-        $query = "SELECT * from player WHERE playerId = ".((int)$id);
+        $query = "SELECT * from player WHERE id = ".((int)$id);
 
         // echo $query;
         // exit(0);

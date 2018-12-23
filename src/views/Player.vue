@@ -1,7 +1,7 @@
 <template>
     <div>
         <p>Player {{ this.obj.firstName }}</p>
-        <PlayerCard :playerId="this.$route.params.id"></PlayerCard>
+        <PlayerCard :playerId="this.obj.id"></PlayerCard>
         <PlayerBoxScore></PlayerBoxScore>
     </div>
 </template>
@@ -9,6 +9,7 @@
 <script>
 // @ is an alias to /src
 import PlayerBoxScore from "@/components/PlayerBoxScore.vue";
+import PlayerCard from "@/components/PlayerCard.vue";
 import store from "@/store.js";
 import router from "@/router.js";
 
@@ -16,6 +17,7 @@ export default {
     name: "Player",
     components: {
         PlayerBoxScore,
+        PlayerCard
     },
     computed: {
         obj: function() {
