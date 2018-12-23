@@ -19,3 +19,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+auth/mysportsfeeds_auth.json
+auth/mysql_auth.json
