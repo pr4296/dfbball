@@ -34,7 +34,7 @@ export default {
     methods: {
         fetchTeam: function() {
             console.log('inside Team fetchTeam');
-            var url = 'https://pratyush.rustagi.cc/basketbrief/api/teams.php?id='+this.$route.params.id;
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/teams.php?id='+this.$route.params.id;
             console.log(url);
             fetch(url)
                 .then(function(response) {return response.json()})

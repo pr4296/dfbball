@@ -90,7 +90,7 @@ export default {
         },
         fetchTopPlayers: function() {
             // console.log('inside Team fetchTeam');
-            var url = 'https://pratyush.rustagi.cc/basketbrief/api/todaysTopPlayers.php';
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/todaysTopPlayers.php';
             // console.log(url);
             fetch(url)
                 .then(function(response) {return response.json()})

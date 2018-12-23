@@ -71,7 +71,7 @@ export default {
         },
         fetchUpcomingGames: function() {
             console.log('inside Team fetchTeam');
-            var url = 'https://pratyush.rustagi.cc/basketbrief/api/upcomingGames.php?id='+this.$route.params.id;
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/upcomingGames.php?id='+this.$route.params.id;
             console.log(url);
             fetch(url)
                 .then(function(response) {return response.json()})

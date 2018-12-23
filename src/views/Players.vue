@@ -35,7 +35,7 @@ export default {
         },
         fetchTopPlayers: function() {
             // console.log('inside Team fetchTeam');
-            var url = 'https://pratyush.rustagi.cc/basketbrief/api/getPlayerCards.php';
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/getPlayerCards.php';
             // console.log(url);
             fetch(url)
                 .then(function(response) {return response.json()})

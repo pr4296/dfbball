@@ -46,7 +46,7 @@ export default {
     methods: {
         fetchPlayerBoxStats: function() {
             console.log('inside Team fetchTeam');
-            var url = 'https://pratyush.rustagi.cc/basketbrief/api/playerBoxStats.php?id='+this.$route.params.id;
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/playerBoxStats.php?id='+this.$route.params.id;
             console.log(url);
             fetch(url)
                 .then(function(response) {return response.json()})

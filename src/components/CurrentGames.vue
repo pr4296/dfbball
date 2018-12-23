@@ -146,7 +146,7 @@ export default {
             return "https://pratyush.rustagi.cc/logos/"+teamAbbrv+".png";
         },
         fetchCurrentGames: function() {
-            var url = 'https://pratyush.rustagi.cc/basketbrief/api/currentGames.php';
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/currentGames.php';
             fetch(url)
                 .then(function(response) {return response.json()})
                 .then(function(responseData) {
@@ -156,7 +156,7 @@ export default {
         },
         fetchGameTopPlayers: function(gameId) {
             // console.log('inside Team fetchTeam');
-            var url = 'https://pratyush.rustagi.cc/basketbrief/api/getGameTopPlayers.php';
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/getGameTopPlayers.php';
             // console.log(url);
             fetch(url)
                 .then(function(response) {return response.json()})

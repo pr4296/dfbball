@@ -87,7 +87,7 @@ export default {
     },
     methods: {
         fetchPlayers: function() {
-            var url = 'https://pratyush.rustagi.cc/basketbrief/api/players.php?namesOnly';
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/players.php?namesOnly';
             fetch(url)
                 .then(function(response) {return response.json()})
                 .then(function(responseData) {
@@ -95,7 +95,7 @@ export default {
                 });
         },
         fetchTeams: function() {
-            var url = 'https://pratyush.rustagi.cc/basketbrief/api/teams.php';
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/teams.php';
             fetch(url)
                 .then(function(response) {return response.json()})
                 .then(function(responseData) {
