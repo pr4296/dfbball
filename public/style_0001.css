@@ -9,6 +9,19 @@ html, body {
     display: flex;
     justify-content: center;
 }
+.playerCardImage {
+    height: 100px;
+}
+.noGames {
+    margin: 10px;
+    background: rgb(255, 229, 196);
+}
+.statBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
 .allTeams {
     display: flex;
     flex-wrap: wrap;
@@ -267,7 +280,7 @@ html, body {
     font-family: 'Rubik', sans-serif;
 }
 .spacer {
-    height: 50px;
+    height: 60px;
     width: 100%;
 }
 .teamRecord {
@@ -414,7 +427,7 @@ td {
         display: none;
     }
     .spacer {
-        height: 100px;
+        height: 120px;
     }
 }
 
@@ -425,7 +438,7 @@ td {
 }
 
 @media only screen and (max-width: 575px) {
-    .players-firstName {
+    .players-firstName, .team-winpct {
         display: none;
     }
     .playerName {
@@ -437,8 +450,11 @@ td {
 }
 
 @media only screen and (max-width: 540px) {
-    .players-reb, .players-ast {
+    .players-reb, .players-ast, .team-city {
         display: none;
+    }
+    .team-name {
+        width: 120px;
     }
 }
 
@@ -455,3 +471,8 @@ td {
     }
 }
 
+@media only screen and (max-width: 625px) {
+    .team-overallrank {
+        display: none;
+    }
+}

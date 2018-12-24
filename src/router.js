@@ -6,6 +6,8 @@ import Player from "@/views/Player.vue"
 import Game from "@/views/Game.vue"
 import Team from "@/views/Team.vue"
 import Teams from "@/views/Teams.vue"
+import Login from "@/views/Login.vue"
+import UserPage from "@/views/UserPage.vue"
 
 Vue.use(Router);
 
@@ -13,6 +15,8 @@ export default new Router({
   routes: [
     { path: '/player/:id', component: Player },
     { path: '/teams', component: Teams },
+    { path: '/userpage', component: UserPage },
+    { path: '/login', component: Login },
     { path: '/players', component: Players },
     { path: '/team/:id', component: Team },
     { path: '/game/:id', component: Game },

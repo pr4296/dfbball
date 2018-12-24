@@ -1,7 +1,8 @@
 <template>
-    <div class="card boxShadow">
+    <div  class="card boxShadow">
         <p class="card-header">Schedule</p>
-        <div class="gameRow" 
+        <div v-if="this.games.length == 0" class="noGames">There are no NBA games today.</div>
+        <div v-if="this.games.length > 0" class="gameRow" 
             v-for="(game, index) in this.games" :key="index"
             @click="goToGame(game.id)"
             >
@@ -115,7 +116,14 @@ export default {
                     if (gameRow['currentQuarter'] == null && gameRow['currentQuarterSecondsRemaining'] == null) return "Starting";
                     // use format of Q1 3:43
                     var secRem = parseInt(gameRow['currentQuarterSecondsRemaining']);
-                    var res = "Q"+gameRow['currentQuarter']+" - "+Math.floor(secRem/60)+":"+(secRem%60 < 10 ? "0"+(secRem%60) : (secRem%60));
+                    var res = "Q"+gameRow['currentQuarter']+" - "
+                    if (gameRow['currentQuarter'] > 5) {
+                        res = (parseInt(gameRow['currentQuarter'])-4)+"OT - ";
+                    }
+                    else if (gameRow['currentQuarter'] == 5) {
+                        res = "OT - ";
+                    }
+                    res += Math.floor(secRem/60)+":"+(secRem%60 < 10 ? "0"+(secRem%60) : (secRem%60));
 
                     return res;
                 }

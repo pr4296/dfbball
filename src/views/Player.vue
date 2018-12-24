@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <p>Player {{ this.obj.firstName }}</p>
+    <div class="container">
         <PlayerCard :playerId="this.obj.id"></PlayerCard>
         <PlayerBoxScore></PlayerBoxScore>
     </div>

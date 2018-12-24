@@ -14,7 +14,7 @@
                     :src="logoUrl(team.abbreviation)"
                     >
                 <div class="team-name card-row-text">
-                    <span class="b">{{ team.city }} </span>
+                    <span class="b team-city">{{ team.city }} </span>
                     <span class="b">{{ team.teamName }}</span>
                 </div>
                 <div class="team-gamesback">
@@ -52,7 +52,7 @@
                     :src="logoUrl(team.abbreviation)"
                     >
                 <div class="team-name card-row-text">
-                    <span class="b">{{ team.city }} </span>
+                    <span class="b team-city">{{ team.city }} </span>
                     <span class="b">{{ team.teamName }}</span>
                 </div>
                 <div class="team-gamesback">

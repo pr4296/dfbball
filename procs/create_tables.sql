@@ -323,3 +323,9 @@ CREATE TABLE login_info (
     salt CHAR(64) NOT NULL,
     PRIMARY KEY (username)
 );
+
+CREATE TABLE login_token (
+    username VARCHAR(32) NOT NULL,
+    token VARCHAR(32) NOT NULL,
+    PRIMARY KEY(username, token)
+);
