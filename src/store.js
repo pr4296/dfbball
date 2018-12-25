@@ -16,6 +16,7 @@ export default new Vuex.Store({
     apiDataDailyTopPlayers: [],
     apiDataGameTopPlayers: [],
     playerCard: [],
+    token: [],
   },
   mutations: {
     setApiDataPlayers(state, newApiData) {
@@ -51,6 +52,9 @@ export default new Vuex.Store({
     },
     setPlayerCard(state, newApiData) {
       state.playerCard = newApiData;
+    },
+    setToken(state, newApiData) {
+      state.token = newApiData;
     }
   },
   actions: {}

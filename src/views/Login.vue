@@ -1,47 +1,71 @@
 <template>
-    <div id="login">
-        <h1>Login</h1>
-        <input type="text" name="username" v-model="input.username" placeholder="Username" />
-        <input type="password" name="password" v-model="input.password" placeholder="Password" />
-        <button type="button" v-on:click="login()">Login</button>
+    <div class="card boxShadow" id="login">
+        <h2>Existing User</h2>
+        <input class="loginInput" type="text" name="username" v-model="input.username" placeholder="Username" />
+        <input class="loginInput" type="password" name="password" v-model="input.password" placeholder="Password" />
+        <span class="errorMessage">{{ this.errorMessage }}</span>
+        <button class="loginButton" type="button" v-on:click="login()">Login</button>
     </div>
 </template>
 
 <script>
-    export default {
-        name: 'Login',
-        data() {
-            return {
-                input: {
-                    username: "",
-                    password: ""
-                }
-            }
-        },
-        methods: {
-            login() {
-                if(this.input.username != "" && this.input.password != "") {
-                    if(this.input.username == this.$parent.mockAccount.username && this.input.password == this.$parent.mockAccount.password) {
+
+import store from "@/store.js";
+import router from "@/router.js";
+
+export default {
+    name: 'Login',
+    data() {
+        return {
+            input: {
+                username: "",
+                password: ""
+            },
+            errorMessage: "",
+        }
+    },
+    methods: {
+        login() {
+            if(this.input.username != "" && this.input.password != "") {
+                this.sha256(this.input.password).then(result => {
+                    if(this.input.username == 'abc' && result == 'abc') {
                         this.$emit("authenticated", true);
                         this.$router.replace({ name: "userpage" });
                     } else {
-                        console.log("The username and / or password is incorrect");
+                        this.errorMessage="The username and / or password is incorrect";
                     }
-                } else {
-                    console.log("A username and password must be present");
-                }
+                }).catch(error => {
+                    this.errorMessage="Something went wrong while trying to log in.";
+                });
+                
+            } else {
+                this.errorMessage = "A username and password must be present";
             }
-        }
+        },
+        async sha256(message) {
+            // encode as UTF-8
+            const msgBuffer = new TextEncoder('utf-8').encode(message);     
+            // hash the message
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            // convert ArrayBuffer to Array
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            // convert bytes to hex string                  
+            const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+            return hashHex;
+        },
+        attemptLogin: function(username, passwordHash) {
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/login.php?username='+username+'&passwordHash='+passwordHash;
+            fetch(url)
+                .then(function(response) {return response.json()})
+                .then(function(responseData) {
+                    if (responseData.hasAttribute('token')) {
+                        store.commit('setToken', responseData.token);
+                        console.log('successful login');
+                        return true;
+                    }
+                    return false;
+            });
+        },
     }
+}
 </script>
-
-<style scoped>
-    #login {
-        width: 500px;
-        border: 1px solid #CCCCCC;
-        background-color: #FFFFFF;
-        margin: auto;
-        margin-top: 200px;
-        padding: 20px;
-    }
-</style>

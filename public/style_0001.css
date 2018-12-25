@@ -16,6 +16,25 @@ html, body {
     margin: 10px;
     background: rgb(255, 229, 196);
 }
+.loginButton {
+    height: 30px;
+    min-width: 300px;
+}
+.errorMessage {
+    color: rgb(255, 88, 88);
+    font-size: 14px;
+    height: 30px;
+}
+.loginInput {
+    height: 30px;
+    min-width: 300px;
+    margin-bottom: 20px;
+}
+#login {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 20px;
+}
 .statBox {
     display: flex;
     flex-direction: column;
