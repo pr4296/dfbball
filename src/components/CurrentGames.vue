@@ -1,8 +1,7 @@
 <template>
     <div  class="card boxShadow">
         <p class="card-header">Schedule</p>
-        <div v-if="this.games.length == 0" class="noGames">There are no NBA games today.</div>
-        <div v-if="this.games.length > 0" class="gameRow" 
+        <div class="gameRow" 
             v-for="(game, index) in this.games" :key="index"
             @click="goToGame(game.id)"
             >
