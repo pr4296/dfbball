@@ -3,18 +3,19 @@
         <div class="loginContainer">
             <div class="card boxShadow" id="login">
                 <h2>Create Account</h2>
-                <input class="loginInput" type="text" name="username" v-model="input.username" placeholder="Username" />
-                <input class="loginInput" type="password" name="password" v-model="input.password" placeholder="Password" />
-                <input class="loginInput" type="password" name="passwordagain" v-model="input.passwordagain" placeholder="Password, again" />
+                <input class="loginInput" type="text" name="username" @keydown.enter="createAccount" v-model="createInput.username" placeholder="Username" />
+                <input class="loginInput" type="password" name="password" @keydown.enter="createAccount" v-model="createInput.password" placeholder="Password" />
+                <input class="loginInput" type="password" name="passwordagain" @keydown.enter="createAccount" v-model="createInput.passwordagain" placeholder="Password, again" />
                 <span class="errorMessage">{{ this.createErrorMessage }}</span>
-                <button class="loginButton" type="button" v-on:click="login()">Create Account</button>
+                <button class="loginButton" type="button" v-on:click="createAccount()">Create Account and Log In</button>
             </div>
             <div class="card boxShadow" id="login">
                 <h2>Existing User</h2>
-                <input class="loginInput" type="text" name="username" v-model="loginInput.username" placeholder="Username" />
-                <input class="loginInput" type="password" name="password" v-model="loginInput.password" placeholder="Password" />
+                <input class="loginInput" type="text" name="username" 
+                @keydown.enter="login" v-model="loginInput.username" placeholder="Username" />
+                <input class="loginInput" type="password" name="password" @keydown.enter="login" v-model="loginInput.password" placeholder="Password" />
                 <span class="errorMessage">{{ this.errorMessage }}</span>
-                <button class="loginButton" type="button" v-on:click="login()">Login</button>
+                <button class="loginButton btnLog" type="button" v-on:click="login()">Log In</button>
             </div>
         </div>
     </div>
@@ -62,7 +63,7 @@ export default {
                     this.createErrorMessage = "Passwords must match.";
                 }
                 this.sha256(this.createInput.password).then(result => {
-                    this.createAccount(this.createInput.username, result);
+                    this.attemptCreateAccount(this.createInput.username, result);
                 }).catch(error => {
                     this.createErrorMessage="Something went wrong while trying to create an account.";
                 });
@@ -90,6 +91,7 @@ export default {
                 .then(function(responseData) {
                     if (typeof(responseData.token) !== 'undefined') {
                         sessionStorage.setItem('token', responseData.token);
+                        sessionStorage.setItem('username', username);
                         store.commit('setToken', responseData.token);
                         console.log('successful login');
                         vm.errorMessage="";
@@ -100,11 +102,12 @@ export default {
                     }
                     else {
                         sessionStorage.removeItem('token');
+                        sessionStorage.removeItem('username');
                         vm.errorMessage="The username and/or password is incorrect";
                     }
             });
         },
-        createAccount(username, passwordHash) {
+        attemptCreateAccount(username, passwordHash) {
             var url = 'https://pratyush.rustagi.cc/dfbball/api/createLogin.php?username='+username+'&passwordHash='+passwordHash;
             console.log(url);
             var vm = this;
@@ -112,7 +115,7 @@ export default {
                 .then(function(response) {return response.json()})
                 .then(function(responseData) {
                     if (responseData.message == 'success') {
-                        this.attemptLogin(username, passwordHash);
+                        vm.attemptLogin(username, passwordHash);
                         return;
                     }
                     else {

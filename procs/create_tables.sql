@@ -329,3 +329,9 @@ CREATE TABLE login_token (
     token VARCHAR(32) NOT NULL,
     PRIMARY KEY(username, token)
 );
+
+CREATE TABLE user_picks (
+    username VARCHAR(32) NOT NULL,
+    pickDate DATE NOT NULL,
+    playerId INT NOT NULL
+);

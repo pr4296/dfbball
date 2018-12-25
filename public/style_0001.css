@@ -19,6 +19,25 @@ html, body {
 .loginButton {
     height: 30px;
     min-width: 300px;
+    background: #278cff;
+    outline: none;
+    color: white;
+    border-radius: 3px;
+    font-weight: bold;
+    transition: 0.3s;
+    height: 40px;
+    font-size: 14px;
+}
+.loginButton:hover {
+    background: #0077ff;
+    transition: 0.3s;
+}
+.loginButton:active {
+    background: #005fcc;
+    transition: 0.3s;
+}
+.btnLog {
+    margin-top: 56px;
 }
 .loginContainer {
     display: flex;
