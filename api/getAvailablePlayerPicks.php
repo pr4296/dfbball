@@ -8,7 +8,7 @@ $db = $creds['db'];
 
 $mysqli = new mysqli($host, $user, $passwd, $db);
 
-$query = "select * from available_players a inner join player p on a.playerId = p.id inner join player_season_totals pst on a.playerId = pst.playerId;";
+$query = "select * from available_players a inner join player p on a.playerId = p.id inner join player_season_totals pst on a.playerId = pst.playerId order by fpts desc;";
 
 $result = $mysqli->query($query);
 
