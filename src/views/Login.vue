@@ -28,7 +28,7 @@ export default {
         login() {
             if(this.input.username != "" && this.input.password != "") {
                 this.sha256(this.input.password).then(result => {
-                    if(this.input.username == 'abc' && result == 'abc') {
+                    if (this.attemptLogin(this.input.username, result)) {
                         this.$emit("authenticated", true);
                         this.$router.replace({ name: "userpage" });
                     } else {
@@ -55,14 +55,16 @@ export default {
         },
         attemptLogin: function(username, passwordHash) {
             var url = 'https://pratyush.rustagi.cc/dfbball/api/login.php?username='+username+'&passwordHash='+passwordHash;
+            console.log(url);
             fetch(url)
                 .then(function(response) {return response.json()})
                 .then(function(responseData) {
-                    if (responseData.hasAttribute('token')) {
+                    if (typeof(responseData.token) !== 'undefined') {
                         store.commit('setToken', responseData.token);
                         console.log('successful login');
                         return true;
                     }
+                    console.log('failed login', responseData);
                     return false;
             });
         },
