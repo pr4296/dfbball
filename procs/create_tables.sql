@@ -335,3 +335,9 @@ CREATE TABLE user_picks (
     pickDate DATE NOT NULL,
     playerId INT NOT NULL
 );
+
+CREATE TABLE available_players (
+    playerId INT NOT NULL,
+    uploadDate DATETIME NOT NULL,
+    primaryPosition VARCHAR(2) NOT NULL
+);
