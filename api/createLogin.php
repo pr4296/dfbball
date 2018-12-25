@@ -3,20 +3,23 @@ header("Access-Control-Allow-Origin: *");
 
 // make sure username and passwordHash were passed
 if (!isset($_GET['username']) || !isset($_GET['passwordHash'])) {
-    echo "invalid data.";
+    echo "Invalid data.";
     exit(1);
 }
 
 $username = $_GET['username'];
 $passwordHash = $_GET['passwordHash'];
+$d = [];
 
 // check the validity of the username and password hash
 if (!ctype_alnum($username) || strlen($username) < 4 || strlen($username) > 32) {
-    echo "invalid username";
+    $d['message'] = "Invalid username.";
+    echo json_encode($d);
     exit(1);
 }
 if (!ctype_alnum($passwordHash) || strlen($passwordHash) != 64) {
-    echo "invalid password hash";
+    $d['message'] = "Invalid password.";
+    echo json_encode($d);
     exit(1);
 }
 
@@ -38,10 +41,12 @@ $result = $mysqli->query($query);
 
 // make sure the login was inserted correctly
 if ($result) {
-    echo "success creating user ".$username;
+    $d['message'] = "success";
+    echo json_encode($d);
 }
 else {
-    echo "user was not created";
+    $d['message'] = "That username is unavailable.";
+    echo json_encode($d);
 }
 
 ?>
