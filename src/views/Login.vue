@@ -28,12 +28,7 @@ export default {
         login() {
             if(this.input.username != "" && this.input.password != "") {
                 this.sha256(this.input.password).then(result => {
-                    if (this.attemptLogin(this.input.username, result)) {
-                        this.$emit("authenticated", true);
-                        this.$router.replace({ name: "userpage" });
-                    } else {
-                        this.errorMessage="The username and / or password is incorrect";
-                    }
+                    this.attemptLogin(this.input.username, result);
                 }).catch(error => {
                     this.errorMessage="Something went wrong while trying to log in.";
                 });
@@ -53,21 +48,35 @@ export default {
             const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
             return hashHex;
         },
-        attemptLogin: function(username, passwordHash) {
+        attemptLogin(username, passwordHash) {
             var url = 'https://pratyush.rustagi.cc/dfbball/api/login.php?username='+username+'&passwordHash='+passwordHash;
             console.log(url);
+            var vm = this;
             fetch(url)
                 .then(function(response) {return response.json()})
                 .then(function(responseData) {
                     if (typeof(responseData.token) !== 'undefined') {
+                        sessionStorage.setItem('token', responseData.token);
                         store.commit('setToken', responseData.token);
                         console.log('successful login');
-                        return true;
+                        vm.errorMessage="";
+                        vm.$emit("authenticated", true);
+                        vm.$router.replace({ path: "userpage" });
+                        vm.$router.go(0);
+                        return;
                     }
-                    console.log('failed login', responseData);
-                    return false;
+                    else {
+                        sessionStorage.removeItem('token');
+                        vm.errorMessage="The username and/or password is incorrect";
+                    }
             });
         },
+    },
+    created() {
+        if (sessionStorage.getItem('token')) {
+            this.$router.replace({ path: "userpage" });
+            this.$router.go(0);
+        }
     }
 }
 </script>

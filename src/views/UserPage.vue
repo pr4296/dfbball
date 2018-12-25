@@ -12,7 +12,13 @@
         name: 'UserPage',
         data() {
             return {};
+        },
+        created() {
+        if (!sessionStorage.getItem('token')) {
+            this.$router.replace({ path: "login" });
+            this.$router.go(0);
         }
+    }
     }
 </script>
 

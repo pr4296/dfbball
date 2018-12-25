@@ -157,6 +157,7 @@ html, body {
 .mainLinkWrapper:hover {
     background: #eee;
     transition: 0.5s;
+    cursor: pointer;
 }
 #navigation {
     margin: 20px;

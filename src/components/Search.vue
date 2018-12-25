@@ -10,6 +10,14 @@
         <span class="mainLinkWrapper">
             <router-link class="mainLink" to="/players">Players</router-link>
         </span>
+        <span id="loginButton" v-show="!token" class="mainLinkWrapper">
+            <a v-on:click="login()" 
+                class="mainLink">Log In</a>
+        </span>
+        <span id="logoutButton" v-show="token" class="mainLinkWrapper">
+            <a v-on:click="logout()" 
+                class="mainLink">Log Out</a>
+        </span>
     </div>
     <div class="searchWrapper"> 
         <form 
@@ -50,16 +58,20 @@ export default {
     },
     data: function() {
         return {
-            searchInput: ''
+            searchInput: '',
+            displayLogout: false
         }
     },
     computed: {
+        token() {
+            console.log('token',sessionStorage.getItem('token'));
+            return sessionStorage.getItem('token');
+        },
         searchData() {
             var sitlc = this.searchInput.toLowerCase();
             if (sitlc.length == 0) {
                 return [];
             }
-
 
             var match = store.state.apiDataTeams.filter(p => (p.city+' '+p.teamName).substring(0, sitlc.length).toLowerCase() == sitlc);
             if (match.length > 0) {
@@ -101,6 +113,19 @@ export default {
                 .then(function(responseData) {
                     store.commit('setApiDataTeams', responseData);
                 });
+        },
+        logout: function() {
+            sessionStorage.removeItem('token');
+            console.log('inside logout');
+            this.$router.replace({ path: "login" });
+            this.displayLogout = false;
+            this.$router.go(0);
+        },
+        login: function() {
+            this.$router.replace({ path: "login" });
+        },
+        getDisplay: function() {
+            return sessionStorage.getItem('token');
         },
         redirectToPlayerPage: function() {
             // console.log(this.searchData);
