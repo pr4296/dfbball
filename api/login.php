@@ -34,15 +34,15 @@ $creds = json_decode(file_get_contents('../auth/mysql_auth.json'), true);
 $mysqli = new mysqli($creds['host'], $creds['user'], $creds['passwd'], $creds['db']);
 
 // insert the new login
-$query = "SELECT passwordHash, salt from login_info where username = '".$username+"'";
+$query = "SELECT passwordHash, salt from login_info where username = '".$username."'";
 $result = $mysqli->query($query);
 $row = mysqli_fetch_assoc($result);
 $ph = $row['passwordHash'];
 $salt = $row['salt'];
-if (hash('sha256', $salt+$passwordHash) == $ph) {
+if (hash('sha256', $salt.$passwordHash) == $ph) {
     // correct log in
     // generate a token and send it to the user
-    $token = bin2hex(openssl_random_pseudo_bytes(32));
+    $token = bin2hex(openssl_random_pseudo_bytes(16));
 
     $query = "INSERT INTO login_token (username, token) VALUES ('".$username."', '".$token."')";
     $result = $mysqli->query($query);
@@ -51,13 +51,15 @@ if (hash('sha256', $salt+$passwordHash) == $ph) {
         $d['message'] = "successful login";
         $d['token'] = $token;
         echo json_encode($d);
+	exit(0);
     }
     else {
         $d['message'] = "something went wrong while generating a token";
         echo json_encode($d);
+	exit(1);
     }
 }
 
-echo json_encode("Invalid login");
+echo json_encode("Invalid login.");
 exit(1);
 ?>
