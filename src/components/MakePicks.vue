@@ -80,6 +80,23 @@ export default {
                     store.commit('setAvailablePlayerPicks', responseData);
             });
         },
+        getMadePicks: function() {
+            // console.log('inside Team fetchTeam');
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/getUserPicks.php?username='+sessionStorage.getItem('username');
+            // console.log(url);
+            var vm = this;
+            fetch(url)
+                .then(function(response) {return response.json()})
+                .then(function(responseData) {
+                    if (responseData.length != 5) return;
+                    vm.picks.PG = responseData[0].playerId;
+                    vm.picks.SG = responseData[1].playerId;
+                    vm.picks.SF = responseData[2].playerId;
+                    vm.picks.PF = responseData[3].playerId;
+                    vm.picks.C = responseData[4].playerId;
+                    
+            });
+        },
         makePlayerPicks: function() {
             var url = 'https://pratyush.rustagi.cc/dfbball/api/makePicks.php?token='+sessionStorage.getItem('token')+'&username='+sessionStorage.getItem('username')+'&PG='+this.picks.PG+'&SG='+this.picks.SG+'&SF='+this.picks.SF+'&PF='+this.picks.PF+'&C='+this.picks.C;
             console.log(url);
@@ -122,6 +139,7 @@ export default {
     },
     created() {
         this.fetchAvailablePlayers();
+        this.getMadePicks();
     }
 }
 </script>
