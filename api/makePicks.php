@@ -3,7 +3,8 @@ header("Access-Control-Allow-Origin: *");
 
 // make sure username and passwordHash were passed
 if (!isset($_GET['username']) || !isset($_GET['token']) || !isset($_GET['arrPlayerIds']) || !isset($_GET['PG']) || !isset($_GET['SG']) || !isset($_GET['SF']) || !isset($_GET['PF']) || !isset($_GET['C'])) {
-    echo "Invalid data.";
+    $d['message'] = "Invalid data.";
+    echo json_encode($d);
     exit(1);
 }
 
