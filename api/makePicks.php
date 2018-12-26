@@ -17,14 +17,6 @@ $pf_id = $_GET['PF'];
 $c_id = $_GET['C'];
 $d = [];
 
-if (!json_decode($arr)) {
-    $d['message'] = "Invalid playerid array.";
-    echo json_encode($d);
-    exit(1);
-}
-
-$arr = json_decode($arr);
-
 if (!ctype_alnum($pg_id) || !ctype_alnum($sg_id) || !ctype_alnum($sf_id) || !ctype_alnum($pf_id) || !ctype_alnum($c_id)) {
     $d['message'] = "Invalid picks.";
     echo json_encode($d);
