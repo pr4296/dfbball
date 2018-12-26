@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 
 // make sure username and passwordHash were passed
-if (!isset($_GET['username']) || !isset($_GET['passwordHash'])) {
+if (!isset($_GET['username']) || !isset($_GET['token']) || !isset($_GET['arrPlayerIds'])) {
     echo "Invalid data.";
     exit(1);
 }

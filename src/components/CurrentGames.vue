@@ -90,12 +90,12 @@ export default {
             return "("+wins+"-"+losses+")";
         },
         getRanking: function(teamId) {
-            console.log(teamId, "in getRanking");
+            //console.log(teamId, "in getRanking");
             var foundTeam = store.state.apiDataTeams.find(x => x.id === teamId);
-            console.log(store.state.apiDataTeams);
-            console.log('found team', foundTeam);
+            //console.log(store.state.apiDataTeams);
+            //console.log('found team', foundTeam);
             if (!foundTeam) return "";
-            console.log(foundTeam.conferenceRank);
+            //console.log(foundTeam.conferenceRank);
             return foundTeam.conferenceRank;
         },
         isEastern: function(teamId) {
