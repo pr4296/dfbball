@@ -153,7 +153,7 @@ export default {
             return "https://pratyush.rustagi.cc/logos/"+teamAbbrv+".png";
         },
         fetchCurrentGames: function() {
-            var url = 'https://pratyush.rustagi.cc/dfbball/api/currentGames.php';
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/currentGames.php?dayDiff=2';
             fetch(url)
                 .then(function(response) {return response.json()})
                 .then(function(responseData) {
