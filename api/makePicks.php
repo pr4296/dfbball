@@ -33,9 +33,14 @@ if (!ctype_alnum($token) || !ctype_alnum($username)) {
 
 $query = "SELECT * FROM login_token where username='".$username."' and token='".$token."';";
 $result = $mysqli->query($query);
+if (!$result) {
+    $d['message'] = "Invalid username or token.";
+    echo json_encode($d);
+    exit(1);
+}
 $row = mysqli_fetch_assoc($result);
 if (!$row) {
-    $d['message'] = "Invalid token.";
+    $d['message'] = "Invalid username or token.";
     echo json_encode($d);
     exit(1);
 }
