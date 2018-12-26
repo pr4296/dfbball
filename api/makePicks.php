@@ -25,11 +25,8 @@ if (!ctype_alnum($pg_id) || !ctype_alnum($sg_id) || !ctype_alnum($sf_id) || !cty
 
 
 // check the validity of the username and password hash
-if (!ctype_alnum($token) || !ctype_alnum($username) || strlen($$token) < 4) {
+if (!ctype_alnum($token) || !ctype_alnum($username)) {
     $d['message'] = "Invalid parameters.";
-    if (sizeof(json_decode($arr)) == 0) {
-        $d['message'] .=$arr." is invalid.";
-    }
     echo json_encode($d);
     exit(1);
 }
