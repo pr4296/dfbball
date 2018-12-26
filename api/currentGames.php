@@ -22,12 +22,13 @@ if (isset($_GET['id'])) {
     }
 }
 
-$dayDiff = $_GET['dayDiff'];
-if (!is_numeric($dayDiff)) {
+$h = $_GET['dayDiff'];
+if (!is_numeric($h)) {
     echo json_encode("Invalid day difference. Must be an integer.");
 }
+$h = ($h*24)+6;
 
-$query = "SELECT h.teamName as homeTeamName, h.city as homeCity, a.teamName as awayTeamName, a.city as awayCity, g.* FROM game g inner join team h on h.id = g.homeTeamId inner join team a on a.id = g.awayTeamId WHERE DATE(DATE_SUB(startTime, INTERVAL 6 HOUR) = DATE(DATE_SUB(now(), INTERVAL 6+24*(".$dayDiff.") HOUR))  ".$and." ORDER BY startTime asc, awayTeamId asc";
+$query = "SELECT h.teamName as homeTeamName, h.city as homeCity, a.teamName as awayTeamName, a.city as awayCity, g.* FROM game g inner join team h on h.id = g.homeTeamId inner join team a on a.id = g.awayTeamId WHERE DATE(DATE_SUB(startTime, INTERVAL 6 HOUR) = DATE(DATE_SUB(now(), INTERVAL ".$h." HOUR))  ".$and." ORDER BY startTime asc, awayTeamId asc";
 // echo $query."\n";
 $result = $mysqli->query($query);
 $rows = [];
