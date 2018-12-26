@@ -61,10 +61,10 @@ if (!result) {
 }
 
 $query = "INSERT INTO user_picks (username, pickDate, playerId) VALUES ";
-$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$pg_id."')";
-$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$sg_id."')";
-$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$sf_id."')";
-$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$pf_id."')";
+$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$pg_id."'), ";
+$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$sg_id."'), ";
+$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$sf_id."'), ";
+$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$pf_id."'), ";
 $query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$c_id."')";
 $query .=";";
 
