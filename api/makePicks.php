@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 
 // make sure username and passwordHash were passed
-if (!isset($_GET['username']) || !isset($_GET['token']) || !isset($_GET['arrPlayerIds']) || !isset($_GET['PG']) || !isset($_GET['SG']) || !isset($_GET['SF']) || !isset($_GET['PF']) || !isset($_GET['C'])) {
+if (!isset($_GET['username']) || !isset($_GET['token']) || !isset($_GET['PG']) || !isset($_GET['SG']) || !isset($_GET['SF']) || !isset($_GET['PF']) || !isset($_GET['C'])) {
     $d['message'] = "Invalid data.";
     echo json_encode($d);
     exit(1);
@@ -10,7 +10,6 @@ if (!isset($_GET['username']) || !isset($_GET['token']) || !isset($_GET['arrPlay
 
 $username = $_GET['username'];
 $token = $_GET['token'];
-$arr = $_GET['arrPlayerIds'];
 $pg_id = $_GET['PG'];
 $sg_id = $_GET['SG'];
 $sf_id = $_GET['SF'];
