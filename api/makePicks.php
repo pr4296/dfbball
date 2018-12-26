@@ -32,6 +32,11 @@ if (!ctype_alnum($token) || !ctype_alnum($username)) {
 }
 
 $query = "SELECT * FROM login_token where username='".$username."' and token='".$token."';";
+
+// connect to database
+$creds = json_decode(file_get_contents('../auth/mysql_auth.json'), true);
+$mysqli = new mysqli($creds['host'], $creds['user'], $creds['passwd'], $creds['db']);
+
 $result = $mysqli->query($query);
 if (!$result) {
     $d['message'] = "Invalid username or token.";
@@ -45,9 +50,7 @@ if (!$row) {
     exit(1);
 }
 
-// connect to database
-$creds = json_decode(file_get_contents('../auth/mysql_auth.json'), true);
-$mysqli = new mysqli($creds['host'], $creds['user'], $creds['passwd'], $creds['db']);
+
 
 $query = "DELETE FROM user_picks where username = '".$username."' and pickDate = DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR))";
 $result = $mysqli->query($query);
