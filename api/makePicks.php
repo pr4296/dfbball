@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 
 // make sure username and passwordHash were passed
-if (!isset($_GET['username']) || !isset($_GET['token']) || !isset($_GET['arrPlayerIds'])) {
+if (!isset($_GET['username']) || !isset($_GET['token']) || !isset($_GET['arrPlayerIds']) || !isset($_GET['PG']) || !isset($_GET['SG']) || !isset($_GET['SF']) || !isset($_GET['PF']) || !isset($_GET['C'])) {
     echo "Invalid data.";
     exit(1);
 }
@@ -10,6 +10,11 @@ if (!isset($_GET['username']) || !isset($_GET['token']) || !isset($_GET['arrPlay
 $username = $_GET['username'];
 $token = $_GET['token'];
 $arr = $_GET['arrPlayerIds'];
+$pg_id = $_GET['PG'];
+$sg_id = $_GET['SG'];
+$sf_id = $_GET['SF'];
+$pf_id = $_GET['PF'];
+$c_id = $_GET['C'];
 $d = [];
 
 if (!json_decode($arr)) {
@@ -20,13 +25,12 @@ if (!json_decode($arr)) {
 
 $arr = json_decode($arr);
 
-for ($i = 0; $i < 5; $i++) {
-    if (!ctype_alnum($arr[$i])) {
-        $d['message'] = "Invalid playerid array.";
-        echo json_encode($d);
-        exit(1);
-    }
+if (!ctype_alnum($pg_id) || !ctype_alnum($sg_id) || !ctype_alnum($sf_id) || !ctype_alnum($pf_id) || !ctype_alnum($c_id)) {
+    $d['message'] = "Invalid picks.";
+    echo json_encode($d);
+    exit(1);
 }
+
 
 // check the validity of the username and password hash
 if (!ctype_alnum($token) || !ctype_alnum($username) || strlen($$token) < 4) {
@@ -60,12 +64,11 @@ if (!result) {
 }
 
 $query = "INSERT INTO user_picks (username, pickDate, playerId) VALUES ";
-for ($i = 0; $i < 5; $i++) {
-    $query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$arr[$i]."')";
-    if ($i < 4) {
-        $query .=",";
-    }
-}
+$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$pg_id."')";
+$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$sg_id."')";
+$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$sf_id."')";
+$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$pf_id."')";
+$query .= "('".$username."', DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)), '".$c_id."')";
 $query .=";";
 
 $result = $mysqli->query($query);

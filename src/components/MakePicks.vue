@@ -81,7 +81,7 @@ export default {
             });
         },
         makePlayerPicks: function() {
-            var url = 'https://pratyush.rustagi.cc/dfbball/api/makePicks.php?token='+sessionStorage.getItem('token')+'&username='+sessionStorage.getItem('username')+'&arrPlayerIds='+this.getPicksString();
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/makePicks.php?token='+sessionStorage.getItem('token')+'&username='+sessionStorage.getItem('username')+'&PG='+this.picks.PG+'&SG='+this.picks.SG+'&SF='+this.picks.SF+'&PF='+this.picks.PF+'&C='+this.picks.C;
             console.log(url);
             var vm = this;
             fetch(url)
@@ -109,9 +109,6 @@ export default {
 
             this.makePlayerPicks();
 
-        },
-        getPicksString: function() {
-            return '['+this.picks.PG+','+this.picks.SG+','+this.picks.SF+','+this.picks.PF+','+this.picks.C+']';
         }
     },
     beforeRouteUpdate(to, from, next) {
