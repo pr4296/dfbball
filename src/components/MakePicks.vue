@@ -106,7 +106,7 @@ export default {
                 this.errorMessage = "Each player picked must be unique.";
                 return false;
             }
-
+            this.errorMessage = "";
             this.makePlayerPicks();
 
         }
