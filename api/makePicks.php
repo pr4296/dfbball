@@ -29,8 +29,11 @@ for ($i = 0; $i < 5; $i++) {
 }
 
 // check the validity of the username and password hash
-if (!ctype_alnum($token) || !ctype_alnum($username) || strlen($$token) < 4 || sizeof(json_decode($arr)) == 0) {
+if (!ctype_alnum($token) || !ctype_alnum($username) || strlen($$token) < 4) {
     $d['message'] = "Invalid parameters.";
+    if (sizeof(json_decode($arr)) == 0) {
+        $d['message'] .=$arr." is invalid.";
+    }
     echo json_encode($d);
     exit(1);
 }
