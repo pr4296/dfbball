@@ -48,26 +48,20 @@ export default {
                     vm.picks.SF = responseData[2];
                     vm.picks.PF = responseData[3];
                     vm.picks.C = responseData[4];
-                    setPlayerData().then(function(res) {
-
-                    });
             });
         },
     },
     beforeRouteUpdate(to, from, next) {
         this.getMadePicks();
-        this.setPlayerData();
         next();
     },
     watch: {
         $route (to, from) {
             this.getMadePicks();
-            this.setPlayerData();
         }
     },
     created() {
         this.getMadePicks();
-        this.setPlayerData();
     }
 };
 </script>
