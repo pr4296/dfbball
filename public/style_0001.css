@@ -40,6 +40,7 @@ html, body {
 .loginButton:hover {
     background: #0077ff;
     transition: 0.3s;
+    cursor: pointer;
 }
 .loginButton:active {
     background: #005fcc;

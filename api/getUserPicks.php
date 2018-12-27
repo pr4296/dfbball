@@ -17,7 +17,7 @@ if (!ctype_alnum($username)) {
     exit(1);
 }
 
-$query = "select * from user_picks where pickDate = DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR))and username = '".$username."';";
+$query = "select * from user_picks u inner join player p on p.id = u.playerId inner join daily_player_box_stats d on d.playerId = u.playerId where DATE(DATE_SUB(d.startTime, INTERVAL 6 HOUR)) = DATE(DATE_SUB(NOW(), INTERVAL 7 HOUR)) and pickDate = DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)) and username = '".$username."';";
 
 $result = $mysqli->query($query);
 

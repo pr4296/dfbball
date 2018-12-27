@@ -5,6 +5,9 @@
             <a href="https://dfbball.com/" class="mainLink">Home</a>
         </span>
         <span class="mainLinkWrapper">
+            <router-link class="mainLink" to="/pick">Pick</router-link>
+        </span>
+        <span class="mainLinkWrapper">
             <router-link class="mainLink" to="/teams">Teams</router-link>
         </span>
         <span class="mainLinkWrapper">

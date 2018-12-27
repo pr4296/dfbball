@@ -2,10 +2,10 @@
 <div class="container">
     <div class="standingsContainer">
         <div class="card boxShadow">
-            <p class="card-header">Eastern Conference</p>
+            <p class="card-header">Western Conference</p>
             <div 
                 class="gameRow" 
-                v-for="team in easternTeams()" :key="team.id"
+                v-for="team in westernTeams()" :key="team.id"
                 @click="goToTeam(team.id)">
 
                 <span class="card-row-text">{{ team.conferenceRank }}</span>
@@ -40,10 +40,10 @@
             </div>
         </div>
         <div class="card boxShadow">
-            <p class="card-header">Western Conference</p>
+            <p class="card-header">Eastern Conference</p>
             <div 
                 class="gameRow" 
-                v-for="team in westernTeams()" :key="team.id"
+                v-for="team in easternTeams()" :key="team.id"
                 @click="goToTeam(team.id)">
 
                 <span class="card-row-text">{{ team.conferenceRank }}</span>

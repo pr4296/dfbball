@@ -8,6 +8,7 @@ import Team from "@/views/Team.vue"
 import Teams from "@/views/Teams.vue"
 import Login from "@/views/Login.vue"
 import UserPage from "@/views/UserPage.vue"
+import Pick from "@/views/Pick.vue"
 
 Vue.use(Router);
 
@@ -20,6 +21,7 @@ export default new Router({
     { path: '/players', component: Players },
     { path: '/team/:id', component: Team },
     { path: '/game/:id', component: Game },
+    { path: '/pick', component: Pick },
     { path: '/', component: Home }
   ]
 });

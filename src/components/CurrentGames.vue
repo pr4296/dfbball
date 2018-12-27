@@ -152,8 +152,8 @@ export default {
         logoUrl: function(teamAbbrv) {
             return "https://pratyush.rustagi.cc/logos/"+teamAbbrv+".png";
         },
-        fetchCurrentGames: function() {
-            var url = 'https://pratyush.rustagi.cc/dfbball/api/currentGames.php?dayDiff=2';
+        fetchCurrentGames: function(dayDiff) {
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/currentGames.php?dayDiff='+dayDiff;
             fetch(url)
                 .then(function(response) {return response.json()})
                 .then(function(responseData) {
@@ -179,18 +179,18 @@ export default {
         }
     },
     beforeRouteUpdate(to, from, next) {
-        this.fetchCurrentGames();
+        this.fetchCurrentGames(0);
         this.fetchGameTopPlayers();
         next();
     },
     watch: {
         $route (to, from) {
-            this.fetchCurrentGames();
+            this.fetchCurrentGames(0);
             this.fetchGameTopPlayers();
         }
     },
     created() {
-        this.fetchCurrentGames();
+        this.fetchCurrentGames(0);
         this.fetchGameTopPlayers();
     }
 }

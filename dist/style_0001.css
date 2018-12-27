@@ -12,6 +12,15 @@ html, body {
 .playerCardImage {
     height: 100px;
 }
+.playerPickDiv {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.playerSelect {
+    height: 30px;
+    margin-bottom: 10px;
+}
 .noGames {
     margin: 10px;
     background: rgb(255, 229, 196);
@@ -19,11 +28,36 @@ html, body {
 .loginButton {
     height: 30px;
     min-width: 300px;
+    background: #278cff;
+    outline: none;
+    color: white;
+    border-radius: 3px;
+    font-weight: bold;
+    transition: 0.3s;
+    height: 40px;
+    font-size: 14px;
+}
+.loginButton:hover {
+    background: #0077ff;
+    transition: 0.3s;
+}
+.loginButton:active {
+    background: #005fcc;
+    transition: 0.3s;
+}
+.btnLog {
+    margin-top: 56px;
+}
+.loginContainer {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
 }
 .errorMessage {
     color: rgb(255, 88, 88);
     font-size: 14px;
     height: 30px;
+    font-weight: bold;
 }
 .loginInput {
     height: 30px;
@@ -448,6 +482,9 @@ td {
     }
     .spacer {
         height: 120px;
+    }
+    .loginContainer {
+        flex-direction: column;
     }
 }
 

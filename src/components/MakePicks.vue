@@ -1,5 +1,5 @@
 <template>
-<div class="card boxShadow">
+<div class="card boxShadow" v-if="visible()">
     <p class="card-header">Make Picks</p>
     <div class="playerPickDiv">
         <select 
@@ -31,7 +31,7 @@
             <option v-for="player in this.players('C')" v-bind:value="player.playerId"  :key="player.playerId">{{player.firstName+' '+player.lastName}}</option>
         </select>
         <span class="errorMessage">{{errorMessage}}</span>
-        <button class="loginButton" type="button" v-on:click="makePicks()">Pick Players</button>
+        <button id="btnMakePicks" class="loginButton" type="button" v-on:click="makePicks()" v-text="this.buttonText"></button>
     </div>
 </div>
 </template>
@@ -52,10 +52,14 @@ export default {
                 PF: -1, 
                 C: -1
             },
-            errorMessage: ""
+            errorMessage: "",
+            buttonText: "Pick Players"
         }
     },
     methods: {
+        visible() {
+            return sessionStorage.getItem('username') != null;
+        },
         players: function(pos) {
             if (pos == 'PG')
                 return store.state.availablePlayerPicks.filter(p => p.primaryPosition == 'PG' || p.primaryPosition == 'G');
@@ -94,7 +98,7 @@ export default {
                     vm.picks.SF = responseData[2].playerId;
                     vm.picks.PF = responseData[3].playerId;
                     vm.picks.C = responseData[4].playerId;
-                    
+                    vm.buttonText = "Update Picks";
             });
         },
         makePlayerPicks: function() {
@@ -107,6 +111,17 @@ export default {
                     console.log(responseData);
                     if (responseData.message != 'success') {
                         vm.errorMessage = responseData.message;
+                    }
+                    else {
+                        vm.buttonText = "Success";
+                        var btn = document.getElementById('btnMakePicks');
+                        btn.style.backgroundColor = "#0e8";
+                        btn.disabled = true;
+                        setTimeout(function(){ 
+                            vm.buttonText = "Update Picks";
+                            btn.style.backgroundColor = "#278cff";
+                            btn.disabled = false;
+                         }, 2000);
                     }
             });
         },
@@ -125,8 +140,7 @@ export default {
             }
             this.errorMessage = "";
             this.makePlayerPicks();
-
-        }
+        },
     },
     beforeRouteUpdate(to, from, next) {
         this.fetchAvailablePlayers();

@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-        <MakePicks></MakePicks>
-        <CurrentGames></CurrentGames>
-        <DailyTopPlayers forteam="all"></DailyTopPlayers>
+      <PicksView></PicksView>
+      <CurrentGames></CurrentGames>
+      <DailyTopPlayers forteam="all"></DailyTopPlayers>
     </div>
 </template>
 
@@ -10,14 +10,14 @@
 
 import CurrentGames from "@/components/CurrentGames.vue";
 import DailyTopPlayers from "@/components/DailyTopPlayers.vue";
-import MakePicks from "@/components/MakePicks.vue";
+import PicksView from "@/components/PicksView.vue";
 
 export default {
   name: "home",
   components: {
     CurrentGames,
     DailyTopPlayers,
-    MakePicks
+    PicksView
   }
 };
 </script>
