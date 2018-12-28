@@ -1,7 +1,11 @@
 <template>
     <div class="card boxShadow">
         <h2>Daily Picks</h2>
-       <span v-text="playerData"></span>
+       <span v-text="this.playerData.PG.pts"></span>
+       <span v-text="this.playerData.SG.pts"></span>
+       <span v-text="this.playerData.SF.pts"></span>
+       <span v-text="this.playerData.PF.pts"></span>
+       <span v-text="this.playerData.C.pts"></span>
     </div>
 </template>
 
@@ -48,6 +52,7 @@ export default {
                     vm.picks.SF = responseData[2];
                     vm.picks.PF = responseData[3];
                     vm.picks.C = responseData[4];
+                    console.log(responseData, vm.picks.PG);
             });
         },
     },
