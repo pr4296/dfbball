@@ -17,15 +17,13 @@ export default {
   },
   methods: {
     canChangePicks: function() {
-        var res = store.state.apiDataCurrentGames.length > 0 && store.state.apiDataCurrentGames.filter(g => g.playedStatus != 'UNPLAYED').length == 0;
-        console.log(res);
+        var res = store.state.apiDataCurrentGames.filter(g => g.playedStatus != 'UNPLAYED').length == 0;
         return res;
     },
   },
   created() {
         var hasToken = sessionStorage.getItem('token');
         var canChangePicks = this.canChangePicks();
-        // console.log(hasToken, canChangePicks);
         if (!hasToken || !canChangePicks) {
             this.$router.replace({ path: "/" });
             this.$router.go(0);
