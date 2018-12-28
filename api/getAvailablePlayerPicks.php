@@ -8,14 +8,20 @@ $db = $creds['db'];
 
 $mysqli = new mysqli($host, $user, $passwd, $db);
 
-$query = "select * from available_players a inner join player p on a.playerId = p.id inner join player_season_totals pst on a.playerId = pst.playerId order by fpts desc;";
+$query = "select p.firstName, p.lastName, pst.* from available_players a inner join player p on a.playerId = p.id inner join player_season_totals pst on a.playerId = pst.playerId order by fpts desc;";
+//echo $query."</br>";
 
 $result = $mysqli->query($query);
 
 $rows = [];
+$count = 0;
+echo "[";
 while ($row = mysqli_fetch_assoc($result)) {
-    $rows[] = $row;
+    if ($count > 0) echo ",";
+    echo json_encode($row);
+    $count++;
 }
-echo json_encode($rows);
+echo "]";
+//echo json_encode($rows);
 
 ?>
