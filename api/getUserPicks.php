@@ -50,7 +50,7 @@ for ($i = 0; $i < 5; $i++) {
     }
 
     $row = mysqli_fetch_assoc($result);
-    if (!$5) $row["isSeason"] = true;
+    if (!$t) $row["isSeason"] = true;
     else $row["isSeason"] = false;
     $res[] = $row;
 }
