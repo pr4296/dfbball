@@ -1,16 +1,16 @@
 <template>
-    <div class="card boxShadow">
-        <h2>Daily Picks</h2>
+    <div class="card boxShadow" v-if="loggedIn()">
+        <h2>{{getUserName()}}'s Picks</h2>
         <div 
-            class="card-row" 
             style="display: flex; 
                 align-items: center; 
                 flex-direction: row;
                 height: 50px"
             v-for="player in this.getPicks" :key="player.playerId"
+            :class="[player.isSeason ? 'card-row unplayedGameRow' : 'card-row activeGameRow' ]"
             @click="goToPlayer(player.playerId)"
             >
-            <img class="card-row-logo" 
+            <img :class="[player.isSeason ? 'card-row-logo grayImg' : 'card-row-logo']" 
                 :src="logoUrl(player.abbreviation)">
             <div class="playerName">
                 <span 
@@ -28,46 +28,47 @@
                 </span>
             </div>
             <div class="players-fpts">
-                <span class="b">{{ player.fpts }} </span>
-                <span class="statLabel">FPTS</span>
+                <span class="b">{{ player.isSeason ? Math.round(player.fpts/player.gameCount) : player.fpts }} </span>
+                <span class="statLabel">{{ player.isSeason ? "FPPG" : "FPTS"}}</span>
             </div>
             <div class="players-pts">
-                <span class="b">{{ player.pts }} </span>
-                <span class="statLabel">PTS</span>
+                <span class="b">{{  player.isSeason ? Math.round(player.pts/player.gameCount) : player.pts }} </span>
+                <span class="statLabel">{{ player.isSeason ? "PPG" : "PTS"}}</span>
             </div>
             <div class="players-reb">
-                <span class="b">{{ (parseInt(player.offReb)+parseInt(player.defReb)) }} </span>
-                <span class="statLabel">REB</span>
+                <span class="b">{{  player.isSeason ? Math.round(((parseInt(player.offReb)+parseInt(player.defReb))/player.gameCount)) : (parseInt(player.offReb)+parseInt(player.defReb)) }} </span>
+                <span class="statLabel">{{ player.isSeason ? "RPG" : "REB"}}</span>
             </div>
             <div class="players-ast">
-                <span class="b">{{ player.ast }} </span>
-                <span class="statLabel">AST</span>
+                <span class="b">{{  player.isSeason ? Math.round(player.ast/player.gameCount) : player.ast }} </span>
+                <span class="statLabel">{{ player.isSeason ? "APG" : "AST"}}</span>
             </div>
             <div class="players-stl">
-                <span class="b">{{ player.stl }} </span>
-                <span class="statLabel">STL</span>
+                <span class="b">{{  player.isSeason ? Math.round(player.stl/player.gameCount) : player.stl }} </span>
+                <span class="statLabel">{{ player.isSeason ? "SPG" : "STL"}}</span>
             </div>
             <div class="players-blk">
-                <span class="b">{{ player.blk }} </span>
-                <span class="statLabel">BLK</span>
+                <span class="b">{{  player.isSeason ? Math.round(player.blk/player.gameCount) : player.blk }} </span>
+                <span class="statLabel">{{ player.isSeason ? "BPG" : "BLK"}}</span>
             </div>
             <div class="players-tov">
-                <span class="b">{{ player.tov }} </span>
-                <span class="statLabel">TOV</span>
+                <span class="b">{{  player.isSeason ? Math.round(player.tov/player.gameCount) : player.tov }}</span>
+                <span class="statLabel">{{ player.isSeason ? "TPG" : "TOV"}}</span>
             </div>
             <div class="players-foulPers">
-                <span class="b">{{ player.foulPers }} </span>
-                <span class="statLabel">FLS</span>
+                <span class="b">{{  player.isSeason ? Math.round(player.foulPers/player.gameCount) : player.foulPers }} </span>
+                <span class="statLabel">{{ player.isSeason ? "FPG" : "FLS"}}</span>
             </div>
             <div class="players-plusMinus">
-                <span class="b">{{ player.plusMinus }} </span>
-                <span class="statLabel">PM</span>
+                <span class="b">{{  player.plusMinus }}</span>
+                <span class="statLabel">{{ player.isSeason ? "TPM" : "PM"}}</span>
             </div>
             <div class="players-mins">
-                <span class="b">{{ convertToMinSec(player.minSeconds) }} </span>
-                <span class="statLabel">MIN</span>
+                <span class="b">{{  player.isSeason ? convertToMinSec(player.minSeconds/player.gameCount) : convertToMinSec(player.minSeconds) }} </span>
+                <span class="statLabel">{{ player.isSeason ? "MPG" : "MIN"}}</span>
             </div>
-        </div>       
+        </div>
+        <button v-if="canChangePicks()" @click="goToPickPage()" style="margin: 20px" class="loginButton">Change</button>       
     </div>
 </template>
 
@@ -94,6 +95,21 @@ export default {
         }
     },
     methods: {
+        getUserName: function() {
+            return sessionStorage.getItem('username');
+        },
+        loggedIn: function() {
+            return sessionStorage.getItem('token') != null
+        },
+        canChangePicks: function() {
+            return store.state.picks.filter(p => p.isSeason).length == 5;
+        },
+        goToPlayer: function(playerId) {
+            router.push('/player/'+playerId)
+        },
+        goToPickPage: function() {
+            router.push('/pick/');
+        },
         convertToMinSec: function(minSeconds) {
             return Math.floor(minSeconds/60)+1;
         },
