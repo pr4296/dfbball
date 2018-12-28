@@ -96,7 +96,7 @@ export default {
                         console.log('successful login');
                         vm.errorMessage="";
                         vm.$emit("authenticated", true);
-                        vm.$router.replace({ path: "userpage" });
+                        vm.$router.replace({ path: "/" });
                         vm.$router.go(0);
                         return;
                     }
@@ -127,7 +127,7 @@ export default {
     },
     created() {
         if (sessionStorage.getItem('token')) {
-            this.$router.replace({ path: "userpage" });
+            this.$router.replace({ path: "/" });
             this.$router.go(0);
         }
     }
