@@ -122,7 +122,7 @@ export default {
         },
         getMadePicks: function() {
             // console.log('inside Team fetchTeam');
-            var url = 'https://pratyush.rustagi.cc/dfbball/api/getUserPicks.php?username='+sessionStorage.getItem('username');
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/getUserPicks.php?current&username='+sessionStorage.getItem('username');
             // console.log(url);
             var vm = this;
             fetch(url)

@@ -20,11 +20,11 @@ export default {
         return store.state.picks.filter(p => p.isSeason).length == 5;
     },
   },
-//   created() {
-//         if (!sessionStorage.getItem('token') || (sessionStorage.getItem('token') && !this.canChangePicks())) {
-//             this.$router.replace({ path: "/" });
-//             this.$router.go(0);
-//         }
-//     }
+  created() {
+        if (!sessionStorage.getItem('token') || (sessionStorage.getItem('token') && !this.canChangePicks())) {
+            this.$router.replace({ path: "/" });
+            this.$router.go(0);
+        }
+    }
 };
 </script>
