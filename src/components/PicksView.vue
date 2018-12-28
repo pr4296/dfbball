@@ -1,5 +1,5 @@
 <template>
-    <div class="card boxShadow" v-if="loggedIn()">
+    <div class="card boxShadow" v-if="loggedIn() && hasMadePicks()">
         <h2>{{getUserName()}}'s Picks</h2>
         <div 
             style="display: flex; 
@@ -95,6 +95,9 @@ export default {
         }
     },
     methods: {
+        hasMadePicks: function() {
+            return store.state.picks.length == 5;
+        },
         getUserName: function() {
             return sessionStorage.getItem('username');
         },
