@@ -17,7 +17,7 @@ if (!ctype_alnum($username)) {
     exit(1);
 }
 
-$query = "select * from user_picks u where pickDate = DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR)) and username = '".$username."';";
+$query = "select * from user_picks u where pickDate = DATE(DATE_SUB((select min(startTime) from game where playedStatus = 'UNPLAYED'), INTERVAL 6 HOUR)) and username = '".$username."';";
 $result = $mysqli->query($query);
 $rows = [];
 while ($row = mysqli_fetch_assoc($result)) {
@@ -33,7 +33,7 @@ if (sizeof($rows) != 5) {
 
 $res = [];
 for ($i = 0; $i < 5; $i++) {
-    $query = "select *, (d.pts+d.fg3PtMade*0.5+(d.offReb+d.defReb)*1.25+d.ast*1.5+d.stl*2+d.blk*2+d.tov*-0.5) as fpts, (d.offReb+d.defReb) as reb from daily_player_box_stats d inner join player p on d.playerId = p.id inner join team t on t.id = p.currentTeamId where d.playerId =".$rows[$i]['playerId']." and DATE(DATE_SUB(d.startTime, INTERVAL 6 HOUR)) = DATE(DATE_SUB(NOW(), INTERVAL 6 HOUR))";
+    $query = "select *, (d.pts+d.fg3PtMade*0.5+(d.offReb+d.defReb)*1.25+d.ast*1.5+d.stl*2+d.blk*2+d.tov*-0.5) as fpts, (d.offReb+d.defReb) as reb from daily_player_box_stats d inner join player p on d.playerId = p.id inner join team t on t.id = p.currentTeamId where d.playerId =".$rows[$i]['playerId']." and DATE(DATE_SUB(d.startTime, INTERVAL 6 HOUR)) = DATE(DATE_SUB((select min(startTime) from game where playedStatus = 'UNPLAYED'), INTERVAL 6 HOUR))";
     $result = $mysqli->query($query);
 
     $t = mysqli_fetch_assoc($result);
