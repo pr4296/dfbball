@@ -18,6 +18,7 @@ export default new Vuex.Store({
     playerCard: [],
     token: [],
     availablePlayerPicks: [],
+    picks: [],
   },
   mutations: {
     setApiDataPlayers(state, newApiData) {
@@ -59,6 +60,9 @@ export default new Vuex.Store({
     },
     setAvailablePlayerPicks(state, newApiData) {
       state.availablePlayerPicks = newApiData;
+    },
+    setPicks(state, newApiData) {
+      state.picks = newApiData;
     }
   },
   actions: {}
