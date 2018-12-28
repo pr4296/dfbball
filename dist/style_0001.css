@@ -25,6 +25,22 @@ html, body {
     margin: 10px;
     background: rgb(255, 229, 196);
 }
+.activeGameRow *{
+    color: #000;
+}
+.unplayedGameRow *{
+    color: #aaa!important;
+}
+.grayImg {
+    opacity: 0.5;
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+    filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(100%);
+}
 .loginButton {
     height: 30px;
     min-width: 300px;
@@ -40,6 +56,7 @@ html, body {
 .loginButton:hover {
     background: #0077ff;
     transition: 0.3s;
+    cursor: pointer;
 }
 .loginButton:active {
     background: #005fcc;
@@ -109,6 +126,9 @@ html, body {
 .btnSearch:active {
     background: #ccc;
     color: #000;
+}
+.blueOutline {
+    border: 2px solid #278cff;
 }
 .boxShadow {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -453,6 +473,9 @@ td {
 
 @media only screen and (max-width: 430px) {
     .logoWrapper {
+        display: none;
+    }
+    .players-pts {
         display: none;
     }
 }

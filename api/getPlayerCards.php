@@ -19,7 +19,7 @@ if (isset($_GET['teamId'])) {
         //pts+ast*0.5+(offReb+defReb)*1.25+ast*1.5+stl*2+blk*2+to*-0.5
 
         //$query = "select *, (pts+fg3PtMade*0.5+(offReb+defReb)*1.25+ast*1.5+stl*2+blk*2+tov*-0.5) as fpts, (offReb+defReb) as reb from daily_player_box_stats d inner join player p on p.id = d.playerId where DATE(DATE_SUB(now(), INTERVAL 6 HOUR)) = DATE(DATE_SUB(startTime, INTERVAL 6 HOUR)) AND playerTeamId = ".((int)$id)." ORDER BY fpts desc";
-        $query = "select p.*, t.abbreviation, r.* from player_ranking r inner join player p on r.playerId = p.id inner join team t on t.id = p.currentTeamId WHERE r.rankingDate = (select max(rankingDate) from player_ranking) AND p.currentTeamId = ".((int)$id)."  order by overallRating desc;";
+        $query = "select p.*, t.abbreviation, r.* from player_ranking r inner join player p on r.playerId = p.id inner join team t on t.id = p.currentTeamId WHERE r.rankingDate = (select max(rankingDate) from player_ranking) AND p.currentTeamId = ".((int)$id)."  order by overallRating desc, offRating desc, defRating desc, p.id asc;";
         // echo $query;
         // exit(0);
 

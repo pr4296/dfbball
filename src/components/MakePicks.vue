@@ -80,8 +80,9 @@ export default {
             fetch(url)
                 .then(function(response) {return response.json()})
                 .then(function(responseData) {
-                    console.log(responseData);
+                    // console.log(responseData);
                     store.commit('setAvailablePlayerPicks', responseData);
+                    console.log(responseData);
             });
         },
         getMadePicks: function() {

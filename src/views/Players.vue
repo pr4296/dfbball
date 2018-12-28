@@ -1,17 +1,43 @@
 <template>
-  <div class="card boxShadow">
+    <div v-if="this.players.length > 0" class="card boxShadow">
         <p class="card-header">Top Players</p>
         <div 
             class="card-row" 
-            v-for="player in this.players" :key="player.id"
-            @click="goToPlayer(player.id)">
+            style="display: flex; 
+                align-items: center; 
+                flex-direction: row;
+                height: 50px"
+            v-for="player in this.players" :key="player.playerId"
+            @click="goToPlayer(player.playerId)"
+            >
             <img class="card-row-logo" 
                 :src="logoUrl(player.abbreviation)">
-            <div> {{ player.primaryPosition }} </div>
-            <div class="b"> 
-                <span>{{ player.firstName }}</span>
-                <span>{{ player.firstName.substring(0, 1)+"." }}</span>
-                <span>{{ player.lastName }}</span>
+            <div class="playerName">
+                <span 
+                    class="card-row-text"
+                    style="flex: 1 0 auto"> 
+                        <span style="font-size: 1.3em" class="b players-firstName">
+                            {{ player.firstName }} 
+                        </span>
+                        <span style="font-size: 1.3em" class="b players-firstNameInitial">
+                            {{ player.firstName.substring(0, 1)+"." }} 
+                        </span>
+                        <span style="font-size: 1.3em" class="b">
+                            {{ player.lastName }}
+                        </span>
+                </span>
+            </div>
+            <div class="players-fpts">
+                <span class="b">{{ player.overallRating }} </span>
+                <span class="statLabel">OVR</span>
+            </div>
+            <div class="players-pts">
+                <span class="b">{{ player.offRating }} </span>
+                <span class="statLabel">OFF</span>
+            </div>
+            <div class="players-reb">
+                <span class="b">{{ player.defRating }} </span>
+                <span class="statLabel">DEF</span>
             </div>
         </div>
     </div>
@@ -46,6 +72,9 @@ export default {
         },
         goToPlayer: function(playerId) {
             router.push('/player/'+playerId)
+        },
+        convertToMinSec: function(minSeconds) {
+            return Math.floor(minSeconds/60)+1;
         },
     },
     beforeRouteUpdate(to, from, next) {
