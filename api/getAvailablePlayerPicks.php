@@ -15,13 +15,15 @@ $result = $mysqli->query($query);
 
 $rows = [];
 $count = 0;
-echo "[";
+$s = "[";
 while ($row = mysqli_fetch_assoc($result)) {
-    if ($count > 0) echo ",";
-    echo json_encode($row);
+    $r = json_encode($row);
+    if (strlen($r) > 0 && $count > 0) $s .=", ";
+    $s .= $r;
     $count++;
 }
-echo "]";
+$s .= "]";
+echo $s;
 //echo json_encode($rows);
 
 ?>
