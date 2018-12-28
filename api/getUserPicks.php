@@ -19,7 +19,7 @@ if (!ctype_alnum($username)) {
 
 $interval = 18;
 
-if (!isset($_GET['current'])) {
+if (isset($_GET['current'])) {
     $interval = -6;
 }
 
