@@ -12,11 +12,11 @@ select
     where p.currentTeamId in (
         select awayTeamId as teamId 
             from game 
-            where DATE(DATE_SUB(startTime, INTERVAL 6 HOUR)) = DATE(DATE_SUB((select min(startTime) from game where playedStatus = 'UNPLAYED'), INTERVAL 6 HOUR)) 
+            where DATE(DATE_SUB(startTime, INTERVAL 6 HOUR)) = DATE(DATE_ADD((select max(startTime) from game where playedStatus <> 'UNPLAYED'), INTERVAL 18 HOUR)) 
         union 
         select homeTeamId as teamId 
             from game 
-            where DATE(DATE_SUB(startTime, INTERVAL 6 HOUR)) = DATE(DATE_SUB((select min(startTime) from game where playedStatus = 'UNPLAYED'), INTERVAL 6 HOUR)));
+            where DATE(DATE_SUB(startTime, INTERVAL 6 HOUR)) = DATE(DATE_ADD((select max(startTime) from game where playedStatus <> 'UNPLAYED'), INTERVAL 18 HOUR)));
 
 SET @maxDate := (select max(uploadDate) from available_players);
 -- delete the old data
