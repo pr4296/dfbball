@@ -114,7 +114,7 @@ export default {
             router.push('/pick/');
         },
         convertToMinSec: function(minSeconds) {
-            return Math.floor(minSeconds/60)+1;
+            return Math.floor(minSeconds/60);
         },
         setPlayerData: function() {
             console.log(store.state.apiDataPlayers);

@@ -86,7 +86,7 @@ export default {
     },
     methods: {
         convertToMinSec: function(minSeconds) {
-            return Math.floor(minSeconds/60)+1;
+            return Math.floor(minSeconds/60);
         },
         fetchTopPlayers: function() {
             // console.log('inside Team fetchTeam');

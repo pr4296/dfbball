@@ -22,11 +22,8 @@ $query = "select * from game g inner join team a on a.id = g.awayTeamId inner jo
 $result = $mysqli->query($query);
 
 $rows = [];
-while ($row = mysqli_fetch_assoc($result)) {
-    $rows[] = $row;
-}
-
-$res["gameInfo"] = $rows;
+$row = mysqli_fetch_assoc($result);
+$res["gameInfo"] = $row;
 
 $query = "select *, (pts+fg3PtMade*0.5+(offReb+defReb)*1.25+ast*1.5+stl*2+blk*2+tov*-0.5) as fpts from daily_player_box_stats d inner join player p on p.id = d.playerId inner join team t on t.id = d.playerTeamId where gameId = ".$id." order by fpts desc;";
 
