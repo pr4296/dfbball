@@ -25,7 +25,7 @@ $rows = [];
 foreach ($gameRow as $row) {
     $id = $row["id"];
     $app = "FPPG";
-    if ($row["playedStatus"] == "UNPLAYED") {
+    if ($row["playedStatus"] == "UNPLAYED" || $row["playedStatus"] == "") {
         $query = "select p.*, round(10*d.fpts/d.gameCount)/10 as statpts from player_season_totals d inner join player p on d.playerId = p.id where (currentTeamId=".$row["awayTeamId"]." or currentTeamId=".$row["homeTeamId"].") order by statpts desc, minSeconds asc, plusMinus desc, fouls asc limit 1;";
     }
     else {
@@ -33,8 +33,16 @@ foreach ($gameRow as $row) {
         $app = "FPTS";
     }
     $result = $mysqli->query($query);
+    $count = 0;
     while ($row = mysqli_fetch_assoc($result)) {
         $row["statpts"] = round($row["statpts"], 2)." ".$app;
+        $rows[] = $row;
+        $count++;
+    }
+    if ($count == 0) {
+        $query = "select p.*, round(10*d.fpts/d.gameCount)/10 as statpts from player_season_totals d inner join player p on d.playerId = p.id where (currentTeamId=".$row["awayTeamId"]." or currentTeamId=".$row["homeTeamId"].") order by statpts desc, minSeconds asc, plusMinus desc, fouls asc limit 1;";
+        $result = $mysqli->query($query);
+        $row = mysqli_fetch_assoc($result);
         $rows[] = $row;
     }
 }

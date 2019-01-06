@@ -13,6 +13,9 @@
         <span class="mainLinkWrapper">
             <router-link class="mainLink" to="/players">Players</router-link>
         </span>
+        <span class="mainLinkWrapper">
+            <router-link class="mainLink" to="/about">About</router-link>
+        </span>
         <span id="loginButton" v-show="!token" class="mainLinkWrapper">
             <a v-on:click="login()" 
                 class="mainLink">Log In</a>
