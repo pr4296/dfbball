@@ -16,7 +16,7 @@ $res = [];
 
 $mysqli = new mysqli($host, $user, $passwd, $db);
 
-$query = "select * from game g inner join team a on a.id = g.awayTeamId inner join team h on h.id = g.homeTeamId where g.id = ".$id.";";
+$query = "select *, a.city as awayCity, a.teamName as awayTeamName, h.city as homeCity, h.teamName as homeTeamName from game g inner join team a on a.id = g.awayTeamId inner join team h on h.id = g.homeTeamId where g.id = ".$id.";";
 //echo $query."</br>";
 
 $result = $mysqli->query($query);

@@ -1,7 +1,8 @@
 <template>
-<div>
-  <div class="card boxShadow gameRow">
-    <div class="scoreColumn">
+<div style="display: inline-flex; flex-direction: column">
+  <div class="card boxShadow">
+    <div class="gameRow">
+      <div class="scoreColumn">
         <div class="teamRow">
             <div class="logoWrapper">
               <img 
@@ -54,9 +55,7 @@
     <div class="gameStatus gray" v-bind:class="{ liveGameGreen: isGameLive(game) }"> 
             {{ getGameStatus(game) }}
     </div>
-    <div class="game-top-player-container">
-        <GameTopPlayer :gameIndex="index" :game="games"></GameTopPlayer>
-    </div>
+  </div>
   </div>
   <div v-if="this.players.length > 0" class="card boxShadow">
       <p class="card-header">Players</p>
