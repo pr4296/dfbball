@@ -22,7 +22,7 @@
                 <tr v-for="row in this.boxStats" :key="row.gameId"
                     @click="goToGame(row.gameId)">
                     <td>{{ row.awayScoreTotal+' '+row.homeScoreTotal }}
-                        {{ wonGame(row.awayScoreTotal, row.homeScoreTotal, row.awayTeamAbbreviation, row.homeTeamAbbreviation, row.abbreviation) ? 'W' : 'L' }}</td>
+                        {{ wonGame(row.awayScoreTotal, row.homeScoreTotal, row.awayTeamId, row.homeTeamId, row.currentTeamId) ? 'W' : 'L' }}</td>
                     <td>{{ row.atOrVs }}{{ row.opposingTeamAbbreviation }}</td>
                     <td style="font-size: 12px">{{ getLocalGameTime(row.startTime) }}</td>
                     <td>{{ row.pts }}</td>
@@ -99,8 +99,8 @@ export default {
             localDate = (localDate.getMonth()+1)+'/'+(localDate.getDate())+'/'+(localDate.getYear()%100);
             return localDate;
         },
-        wonGame: function(awayScore, homeScore, awayAbbrv, homeAbbrv, oppAbbrv) {
-            return (awayScore > homeScore && homeAbbrv == oppAbbrv) || (awayScore < homeScore && awayAbbrv == oppAbbrv);
+        wonGame: function(awayScore, homeScore, awayId, homeId, currTeamId) {
+            return (awayScore > homeScore && homeId == currTeamId) || (awayScore < homeScore && awayId == currTeamId);
         }
     },
     beforeRouteUpdate(to, from, next) {

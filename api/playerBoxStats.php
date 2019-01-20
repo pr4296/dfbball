@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
     
     $id = $_GET['id'];
     if (is_numeric($id)){
-        $query = "SELECT t.abbreviation, d.*, g.awayScoreTotal, g.homeScoreTotal, g.homeTeamId, g.awayTeamId FROM daily_player_box_stats d inner join team t on d.playerTeamId = t.id inner join game g on g.id = d.gameId WHERE d.playerId = ".((int)$id)." and startTime > '2018-08-01' ORDER BY d.startTime desc";
+        $query = "SELECT t.abbreviation, d.*, g.awayScoreTotal, g.homeScoreTotal, g.homeTeamId, g.awayTeamId FROM daily_player_box_stats d inner join team t on d.playerTeamId = t.id inner join game g on g.id = d.gameId WHERE d.playerId = ".((int)$id)." and startTime > '2018-08-01 00:00:00' ORDER BY d.startTime desc";
 
         // echo $query;
         // exit(0);
