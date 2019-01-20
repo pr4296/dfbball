@@ -9,21 +9,31 @@
                 <th>AST</th>
                 <th>STL</th>
                 <th>BLK</th>
-                <th>3PM</th>
+                <th>FG</th>
+                <th>3PT</th>
+                <th>FT</th>
                 <th>TOV</th>
+                <th>FLS</th>
+                <th>+/-</th>
+                <th>MIN</th>
             </thead>
             <tbody>
                 <tr v-for="row in this.boxStats" :key="row.gameId"
                     @click="goToGame(row.gameId)">
                     <td>{{ row.atOrVs }}{{ row.opposingTeamAbbreviation }}</td>
-                    <td>{{ getLocalGameTime(row.startTime) }}</td>
+                    <td style="font-size: 12px">{{ getLocalGameTime(row.startTime) }}</td>
                     <td>{{ row.pts }}</td>
                     <td>{{ parseInt(row.offReb)+parseInt(row.defReb) }}</td>
                     <td>{{ row.ast }}</td>
                     <td>{{ row.stl }}</td>
                     <td>{{ row.blk }}</td>
-                    <td>{{ row.fg3PtMade }}</td>
+                    <td>{{ parseInt(row.fg2PtMade)+parseInt(row.fg3PtMade) }}/{{ parseInt(row.fg2PtAtt)+parseInt(row.fg3PtAtt) }}</td>
+                    <td>{{ row.fg3PtMade }}/{{ row.fg3PtAtt }}</td>
+                    <td>{{ row.ftMade }}/{{ row.ftAtt }}</td>
                     <td>{{ row.tov }}</td>
+                    <td>{{ row.foulPers }}</td>
+                    <td>{{ row.plusMinus }}</td>
+                    <td>{{ Math.ceil(row.minSeconds/60) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -83,11 +93,7 @@ export default {
             if (currDateUTC - gameDateUTC > -24*60*60*1000 && currDateUTC < gameDateUTC) return "Tomorrow ";
             // console.log('at end');
 
-            var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-            
-            localDate = days[localDate.getDay()]+", "+months[localDate.getMonth()]+" "+localDate.getDate()+", "+localDate.getFullYear();
+            localDate = (localDate.getMonth()+1)+'/'+(localDate.getDate())+'/'+(localDate.getYear()%100);
             return localDate;
         }
     },

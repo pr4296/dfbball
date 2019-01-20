@@ -83,16 +83,18 @@ export default {
             else return Math.round(total/1000000)+'M';
         },
         getSalaryString: function(years, total) {
-            if (!years || !total) return '';
+            if (!years || !total) return 'N/A';
             console.log(years,total);
             var fp = years+' Years $';
-            return fp+this.roundSalary(total);
+            fp = fp+this.roundSalary(total);
+            console.log('fp',fp, fp.length);
+            return fp.length === 0 ? 'N/A' : fp;
         },
         getHeightString: function(h) {
             return Math.floor(h/12)+"'"+h%12+'"';
         },
         getRecentSchool: function(h, c) {
-            if (c == 'NULL' && h == 'NULL') return '';
+            if (c == 'NULL' && h == 'NULL') return 'N/A';
             if (c == 'NULL') return h;
             return c;
         },
