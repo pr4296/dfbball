@@ -2,8 +2,9 @@
     <div class="card"><h2>Box Score</h2>
         <table>
             <thead>
-                <th>Opponent</th>
-                <th>Game Date</th>
+                <th>W/L</th>
+                <th>OPP</th>
+                <th>Date</th>
                 <th>PTS</th>
                 <th>REB</th>
                 <th>AST</th>
@@ -20,6 +21,8 @@
             <tbody>
                 <tr v-for="row in this.boxStats" :key="row.gameId"
                     @click="goToGame(row.gameId)">
+                    <td>{{ row.awayScoreTotal+' '+row.homeScoreTotal }}
+                        {{ wonGame(row.awayScoreTotal, row.homeScoreTotal, row.awayTeamAbbreviation, row.homeTeamAbbreviation, row.abbreviation) ? 'W' : 'L' }}</td>
                     <td>{{ row.atOrVs }}{{ row.opposingTeamAbbreviation }}</td>
                     <td style="font-size: 12px">{{ getLocalGameTime(row.startTime) }}</td>
                     <td>{{ row.pts }}</td>
@@ -95,6 +98,9 @@ export default {
 
             localDate = (localDate.getMonth()+1)+'/'+(localDate.getDate())+'/'+(localDate.getYear()%100);
             return localDate;
+        },
+        wonGame: function(awayScore, homeScore, awayAbbrv, homeAbbrv, oppAbbrv) {
+            return (awayScore > homeScore && homeAbbrv == oppAbbrv) || (awayScore < homeScore && awayAbbrv == oppAbbrv);
         }
     },
     beforeRouteUpdate(to, from, next) {
