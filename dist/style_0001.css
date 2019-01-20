@@ -536,6 +536,9 @@ td {
     .team-name {
         width: 120px;
     }
+    .mainLink {
+        font-size: 14px;
+    }
 }
 
 @media only screen and (min-width: 575px) {

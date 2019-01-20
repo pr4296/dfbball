@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
     
     $id = $_GET['id'];
     if (is_numeric($id)){
-        $query = "SELECT * from player WHERE id = ".((int)$id);
+        $query = "SELECT p.*, t.abbreviation from player p inner join team t on p.currentTeamId = t.id WHERE p.id = ".((int)$id);
 
         // echo $query;
         // exit(0);

@@ -1,14 +1,47 @@
 <template>
-    <div class="card boxShadow">
-        <div class="statBox">
-            <h2>{{ this.player.firstName }} {{this.player.lastName }}</h2>
-            <img class="playerCardImage" :src="this.player.imgUrl"/>
-            <span>Jersey #{{ this.player.jerseyNumber }}</span>
-            <span>{{ getFullPositionName(this.player.primaryPosition) }}</span>
-            <span>{{ getSalaryString(this.player.contractYearsCount, this.player.contractTotalSalary)}}</span>
-            <span>{{ getHeightString(this.player.heightInches)}}  {{this.player.weightPounds}} lbs</span>
-            <span>{{ getRecentSchool(this.player.highSchool, this.player.college)}}</span>
-            <span>{{ getAgeInYears(this.player.birthDate)}}</span>
+    <div class="playerCard">
+        <div style="background: #eee; display: flex">
+             <img 
+                  style="width: 50px; position: absolute; margin: 10px;"
+                  :src="logoUrl(this.player.abbreviation)"> 
+            <img class="playerCardImage" style="align-self: flex-end" :src="this.player.imgUrl"/>
+        </div>
+        <div class="statBox" style="color: white;">
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end; margin-bottom: 20px">
+                <span style="display: inherit; font-size: 20px; font-weight: bold">{{ this.player.firstName }} {{this.player.lastName }}</span>
+                <div><span style="font-weight: bolder">#{{ this.player.jerseyNumber }}</span></div>
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-end; margin-bottom: 10px">
+                <div style="margin-right: 10px">
+                    <span style="color: #999">Position </span>
+                    <span style="font-weight: bolder">{{ getFullPositionName(this.player.primaryPosition) }}</span>
+                </div>
+                <div>
+                    <span style="color: #999; ">Age </span>
+                    <span style="font-weight: bolder">{{getAgeInYears(this.player.birthDate)}}</span>
+                </div>
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-end; margin-bottom: 10px">
+                <div style="margin-right: 10px">
+                    <span style="color: #999">Height </span> 
+                    <span style="font-weight: bolder"> {{ getHeightString(this.player.heightInches)}} </span>
+                </div>
+                <div>
+                    <span style="color: #999">Weight </span>
+                    <span style="font-weight: bolder"> {{this.player.weightPounds}} lbs</span>
+                </div>
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-end; margin-bottom: 10px">
+                <span style="color: #999; margin-right: 3px">Contract </span>
+                <span style="font-weight: bolder"> {{ getSalaryString(this.player.contractYearsCount, this.player.contractTotalSalary)}}</span>
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-end; margin-bottom: 10px">
+                <span style="color: #999; margin-right: 3px">School </span>
+                <span style="font-weight: bolder"> {{ getRecentSchool(this.player.highSchool, this.player.college)}}</span>
+            </div>
+            
+            <span></span>
+            
         </div>
     </div>
 </template>
@@ -64,8 +97,11 @@ export default {
             return c;
         },
         getAgeInYears: function(y) {
-            return 'Born '+y+' - '+Math.floor((new Date() - new Date(y).getTime()) / 3.15576e+10)+' Years Old';
-        }
+            return Math.floor((new Date() - new Date(y).getTime()) / 3.15576e+10)
+        },
+        logoUrl: function(teamAbbrv) {
+            return "https://pratyush.rustagi.cc/logos/"+teamAbbrv+".png";
+        },
     },
     beforeRouteUpdate(to, from, next) {
         this.fetchPlayer();

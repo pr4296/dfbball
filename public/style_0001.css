@@ -9,8 +9,14 @@ html, body {
     display: flex;
     justify-content: center;
 }
+.playerCard {
+    background: #222; 
+    display: flex; 
+    flex-direction: row; 
+    border-radius: 5px
+}
 .playerCardImage {
-    height: 100px;
+    width: 300px;
 }
 .playerPickDiv {
     display: flex;
@@ -87,10 +93,11 @@ html, body {
     padding: 20px;
 }
 .statBox {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     margin: 10px;
+    width: 300px;
 }
 .allTeams {
     display: flex;
@@ -557,5 +564,11 @@ td {
 @media only screen and (max-width: 625px) {
     .team-overallrank {
         display: none;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .playerCard {
+        flex-direction: column;
     }
 }
