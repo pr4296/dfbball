@@ -21,8 +21,10 @@
             <tbody>
                 <tr v-for="row in this.boxStats" :key="row.gameId"
                     @click="goToGame(row.gameId)">
-                    <td>{{ row.awayScoreTotal+' '+row.homeScoreTotal }}
-                        {{ wonGame(row.awayScoreTotal, row.homeScoreTotal, row.awayTeamId, row.homeTeamId, row.currentTeamId) ? 'W' : 'L' }}</td>
+                    <td><span :class="[wonGame(row.awayScoreTotal, row.homeScoreTotal, row.awayTeamId, row.homeTeamId, row.playerTeamId) ? 'boxscore-win' : 'boxscore-loss' ]">
+                        {{ wonGame(row.awayScoreTotal, row.homeScoreTotal, row.awayTeamId, row.homeTeamId, row.playerTeamId) ? 'W' : 'L' }}
+                        </span>
+                    </td>
                     <td>{{ row.atOrVs }}{{ row.opposingTeamAbbreviation }}</td>
                     <td style="font-size: 12px">{{ getLocalGameTime(row.startTime) }}</td>
                     <td>{{ row.pts }}</td>
@@ -100,7 +102,7 @@ export default {
             return localDate;
         },
         wonGame: function(awayScore, homeScore, awayId, homeId, currTeamId) {
-            return (awayScore > homeScore && homeId == currTeamId) || (awayScore < homeScore && awayId == currTeamId);
+            return (parseInt(awayScore) > parseInt(homeScore) && awayId == currTeamId) || (parseInt(awayScore) < parseInt(homeScore) && homeId == currTeamId);
         }
     },
     beforeRouteUpdate(to, from, next) {

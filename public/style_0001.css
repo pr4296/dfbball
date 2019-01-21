@@ -446,6 +446,15 @@ td {
     font-size: 10px;
 }
 
+.boxscore-win {
+    color: rgb(0, 179, 74);
+    font-weight: bolder;
+}
+.boxscore-loss {
+    color: rgb(255, 58, 58);
+    font-weight: bolder;
+}
+
 .players-fpts, .players-pts, .players-reb, .players-ast, .players-stl,
 .players-blk, .players-tov, .players-foulPers, .players-plusMinus, .players-mins,
 .team-gamesback, .team-wins, .team-losses, .team-winpct, .team-overallrank {
