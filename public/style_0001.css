@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Rubik:700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Titillium+Web:400,600,700');
 
 html, body {
-    background: #fff;
-    font-family: 'Niramit', sans-serif;
-    color: #222;
+    font-family: 'Titillium Web', sans-serif;
+    color: #444;
 }
 #view {
     display: flex;
@@ -58,6 +57,7 @@ html, body {
     transition: 0.3s;
     height: 40px;
     font-size: 14px;
+    border: none;
 }
 .loginButton:hover {
     background: #0077ff;
@@ -137,8 +137,9 @@ html, body {
 .blueOutline {
     border: 2px solid #278cff;
 }
-.boxShadow {
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+/* .boxShadow {
+  box-shadow: 0px 16px 43px rgba(46, 38, 80, 0.29);
+  /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 .boxShadowHover {
@@ -148,7 +149,7 @@ html, body {
 
 .boxShadowHover:hover {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
+} */
 .container {
     display: flex;
     flex-direction: column;
@@ -164,7 +165,7 @@ html, body {
 }
 .stickyHeader {
     position:fixed;
-    background: rgba(255, 255, 255, .9);
+    background: #fff;
     left: 0;
     top:0;
     width:100%;
@@ -179,7 +180,6 @@ html, body {
     color: inherit;
 }
 .inpSearch {
-    font-family: 'Niramit', sans-serif;
     font-weight: 700;
     font-size: 0.8em;
     color: #333;
@@ -198,7 +198,6 @@ html, body {
 }
 .websiteName {
     font-size: 20px;
-    font-family: 'Niramit', sans-serif;
     font-weight: 900;
     margin-right: 10px;
 }
@@ -207,7 +206,7 @@ html, body {
     font-size: 1.2em;
     text-decoration: none;
     font-weight: 700;
-    color: rgb(3, 0, 196);
+    color: rgb(46, 46, 46);
 }
 .mainLinkWrapper {
     background: none;
@@ -216,9 +215,13 @@ html, body {
     transition: 0.5s;
 }
 .mainLinkWrapper:hover {
-    background: #eee;
+    background: rgba(0, 255, 136, 0.612);
     transition: 0.5s;
     cursor: pointer;
+}
+.mainLinkWrapper:active {
+    transition: 0.2s;
+    background: rgb(0, 255, 174);
 }
 #navigation {
     margin: 20px;
@@ -229,11 +232,11 @@ html, body {
     min-width: 300px;
 }
 .card-row-logo {
-    height: 20px;
+    width: 20px;
     cursor: pointer;
     margin: auto;
     margin-left: 5px;
-    margin-right: 5px;
+    margin-right: 10px;
     transition: 0.1s 
 }
 .card-row:hover {
@@ -243,6 +246,7 @@ html, body {
     background: #ddd;
 }
 .card-row {
+    text-align: right;
     font-size: 0.8em;
     height: 40px;
     padding: 0 15px 0 10px;
@@ -260,6 +264,8 @@ html, body {
     padding-bottom: 4px;
     margin: 10px;
     display: inline-block;
+    background: #fff;
+    border-radius: 5px;
 }
 .card-header {
     font-weight: 700;
@@ -310,18 +316,25 @@ html, body {
 
 }
 .gameRow {
+    text-align: center;
     margin: 10px;;
     padding: 5px;
     display: flex;
     flex-direction: row;
     cursor: pointer;
+    height: inherit;
     border-bottom: 1px solid #ccc;
 }
+
+.teamRow {
+    height: 35px;
+}
+
 .gameRow:last-child {
     border-bottom: none;
 }
 .gameRow:hover {
-    background: #eaeaea;
+    background: #fff70098;
 }
 .teamRow {
     text-align: left;
@@ -358,7 +371,7 @@ html, body {
     margin-right: 10px;
     text-align: center;
     border-radius: 20px;
-    font-family: 'Rubik', sans-serif;
+    font-family: 'ZCOOL QingKe HuangYou', sans-serif;
 }
 .spacer {
     height: 60px;
@@ -387,12 +400,17 @@ tr:hover {
     color: #000;
     cursor: pointer;
 }
+.standingsContainer {
+    display: flex;
+    justify-content: center;
+}
 table {
-    font-family: monospace;
+    font-size: 12px;
+    font-family: 'Roboto Mono', monospace;
     border-collapse: collapse;
 }
 th {
-    font-size: 0.4em;
+    font-size: 12px;
 }
 td {
     padding: 5px;
@@ -466,7 +484,8 @@ td {
 }
 
 .playerName, .team-name {
-    width: 230px;
+    width: 227px;
+    text-align: left;
 }
 
 @media only screen and (max-width: 680px) {
@@ -476,13 +495,13 @@ td {
 }
 
 @media only screen and (max-width: 600px) {
-    .game-top-player-container {
+    .game-top-player-container, .boxscore-fg {
         display: none;
     }
 }
 
 @media only screen and (max-width: 475px) {
-    .teamRecord {
+    .teamRecord, .boxscore-stl, .boxscore-blk {
         display: none;
     }
 }
@@ -528,7 +547,7 @@ td {
 }
 
 @media only screen and (max-width: 725px) {
-    .players-tov {
+    .players-tov, .boxscore-ft {
         display: none;
     }
 }
@@ -553,7 +572,7 @@ td {
         width: 120px;
     }
     .mainLink {
-        font-size: 14px;
+        font-size: 16px;
     }
 }
 
@@ -563,10 +582,9 @@ td {
     }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (max-width: 1200px) {
     .standingsContainer {
-        display: flex;
-        flex-direction: row;
+        flex-direction: column;
     }
 }
 
@@ -579,5 +597,32 @@ td {
 @media only screen and (max-width: 650px) {
     .playerCard {
         flex-direction: column;
+    }
+    .boxscore-3pt {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .boxscore-fls {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .boxscore-pm {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .boxscore-tov {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .boxscore-min {
+        display: none;
     }
 }

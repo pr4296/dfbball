@@ -4,7 +4,7 @@
         <div class="card boxShadow">
             <p class="card-header">Western Conference</p>
             <div 
-                class="gameRow" 
+                class="gameRow teamRow" 
                 v-for="team in westernTeams()" :key="team.id"
                 @click="goToTeam(team.id)">
 
@@ -42,7 +42,7 @@
         <div class="card boxShadow">
             <p class="card-header">Eastern Conference</p>
             <div 
-                class="gameRow" 
+                class="gameRow teamRow" 
                 v-for="team in easternTeams()" :key="team.id"
                 @click="goToTeam(team.id)">
 

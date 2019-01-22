@@ -1,6 +1,6 @@
 <template>
     <div class="playerCard">
-        <div style="background: #eee; display: flex">
+        <div style="background: #444; display: flex">
              <img 
                   style="width: 50px; position: absolute; margin: 10px;"
                   :src="logoUrl(this.player.abbreviation)"> 

@@ -9,8 +9,14 @@ html, body {
     display: flex;
     justify-content: center;
 }
+.playerCard {
+    background: #222; 
+    display: flex; 
+    flex-direction: row; 
+    border-radius: 5px
+}
 .playerCardImage {
-    height: 100px;
+    width: 300px;
 }
 .playerPickDiv {
     display: flex;
@@ -87,10 +93,11 @@ html, body {
     padding: 20px;
 }
 .statBox {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     margin: 10px;
+    width: 300px;
 }
 .allTeams {
     display: flex;
@@ -439,6 +446,15 @@ td {
     font-size: 10px;
 }
 
+.boxscore-win {
+    color: rgb(0, 179, 74);
+    font-weight: bolder;
+}
+.boxscore-loss {
+    color: rgb(255, 58, 58);
+    font-weight: bolder;
+}
+
 .players-fpts, .players-pts, .players-reb, .players-ast, .players-stl,
 .players-blk, .players-tov, .players-foulPers, .players-plusMinus, .players-mins,
 .team-gamesback, .team-wins, .team-losses, .team-winpct, .team-overallrank {
@@ -557,5 +573,11 @@ td {
 @media only screen and (max-width: 625px) {
     .team-overallrank {
         display: none;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .playerCard {
+        flex-direction: column;
     }
 }
