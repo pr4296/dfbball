@@ -25,7 +25,7 @@ export default {
         var hasToken = sessionStorage.getItem('token');
         var canChangePicks = this.canChangePicks();
         if (!hasToken || !canChangePicks) {
-            this.$router.replace({ path: "/" });
+            this.$router.replace({ path: "/login" });
             this.$router.go(0);
         }
     }
