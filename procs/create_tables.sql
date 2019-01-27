@@ -322,6 +322,7 @@ CREATE TABLE player_ranking (
     rank_plusMinus INT,
     rank_minSeconds INT,
     rank_fpts INT,
+    rank_reb INT,
     PRIMARY KEY (playerId, uploadDate)
 );
 

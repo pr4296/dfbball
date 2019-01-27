@@ -1,5 +1,5 @@
 <template>
-<div style="display: inline-flex; flex-direction: column">
+<div class="container">
   <div class="card boxShadow">
     <div class="gameRow">
       <div class="scoreColumn">
