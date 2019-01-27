@@ -488,6 +488,21 @@ td {
     text-align: left;
 }
 
+.topPlayerTinyCard {
+    background: #eee; 
+    display: flex; 
+    margin: 10px;
+    transition: 0.2s;
+}
+.topPlayerTinyCard:hover {
+    background: #ddd;
+    transition: 0.5s;
+}
+.topPlayerTinyCard:active {
+    background: #ccc;
+    transition: 0.5s;
+}
+
 @media only screen and (max-width: 680px) {
     .playerPhoto, .players-stl, .players-blk {
         display: none;

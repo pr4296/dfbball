@@ -1,5 +1,5 @@
 <template>
-    <div class="card boxShadow blueOutline" v-if="loggedIn() && hasMadePicks()">
+    <div class="card boxShadow blueOutline" v-if="loggedIn() && hasMadePicks()" style="text-align: center">
         <h2>{{getUserName()}}'s Picks</h2>
         <div 
             style="display: flex; 

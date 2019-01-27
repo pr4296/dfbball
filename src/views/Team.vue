@@ -1,8 +1,9 @@
 <template>
 <div>
-    <p>Team {{ this.teamInfo.city }} {{ this.teamInfo.teamName }}</p>
-    <p>Arena: {{ this.teamInfo.venueName }}</p>
-    <div class="card-container">
+    <div class="container">
+        <div style="display: flex;"><img style="height: 30px;  margin: auto; margin-right: 20px;" :src="logoUrl(this.teamInfo.abbreviation)">
+            <span style="font-size: 25px; font-weight: bolder">{{ this.teamInfo.city }} {{ this.teamInfo.teamName }}</span>
+        </div>
         <PlayerRankings :teamId="this.$route.params.id" ></PlayerRankings>
         <TeamUpcomingGames></TeamUpcomingGames>
     </div>
@@ -43,6 +44,9 @@ export default {
                     store.commit('setApiDataTeam', responseData[0]);
             });
         },
+        logoUrl: function(teamAbbrv) {
+            return "https://pratyush.rustagi.cc/logos/"+teamAbbrv+".png";
+        }
     },
     beforeRouteUpdate(to, from, next) {
         this.fetchTeam();
