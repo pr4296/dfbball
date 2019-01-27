@@ -2,9 +2,8 @@
 <div class="card boxShadow">
     <p class="card-header">Player Rankings</p>
     <div 
-        class="card-row" 
         v-for="player in players" :key="player.playerId"
-        @click="goToPlayer(player.id)">
+        @click="goToPlayer(player.playerId)">
         <span 
             class="card-row-text"> 
                 <span class="b">

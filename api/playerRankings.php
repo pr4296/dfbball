@@ -15,7 +15,7 @@ if (isset($_GET['teamId'])) {
     $id = $_GET['teamId'];
     if (is_numeric($id)){
 
-        $query = "select p.firstName, p.lastName, p.imgUrl, r.*, t.abbreviation from player_ranking r inner join player p on p.id = r.playerId inner join team t on t.id = p.currentTeamId where p.currentTeamId = ".((int)$id);
+        $query = "select p.firstName, p.lastName, p.imgUrl, r.*, t.abbreviation, pst.* from player_ranking r inner join player p on p.id = r.playerId inner join team t on t.id = p.currentTeamId inner join player_season_totals pst on pst.playerId = p.id where p.currentTeamId = ".((int)$id);
 
         $result = $mysqli->query($query);
         
@@ -32,7 +32,7 @@ if (isset($_GET['teamId'])) {
     }
 }
 
-$query = "select p.firstName, p.lastName, p.imgUrl, r.*, t.abbreviation from player_ranking r inner join player p on p.id = r.playerId inner join team t on t.id = p.currentTeamId";
+$query = "select p.firstName, p.lastName, p.imgUrl, r.*, t.abbreviation, pst.* from player_ranking r inner join player p on p.id = r.playerId inner join team t on t.id = p.currentTeamId inner join player_season_totals pst on pst.playerId = p.id";
 $result = $mysqli->query($query);
 
 $rows = [];
