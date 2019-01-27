@@ -19,7 +19,7 @@ def main():
     conn, db = apiUtils.getDbConnection('player_season_totals', False)
 
     # columns for all the rankable stats
-    columns = ['gameCount', 'fg2PtAtt', 'fg2PtMade', 'fg3PtAtt', 'fg3PtMade', 'ftAtt', 'ftMade', 'offReb', 'defReb', 'ast', 'pts', 'tov', 'stl', 'blk', 'blkAgainst', 'fouls', 'foulPers', 'foulsDrawn', 'foulPers', 'foulPersDrawn', 'foulTech', 'foulTechDrawn', 'foulFlag1', 'foulFlag1Drawn', 'foulFlag2', 'foulFlag2Drawn', 'ejections', 'plusMinus', 'minSeconds', 'fpts']
+    columns = ['gameCount', 'fg2PtAtt', 'fg2PtMade', 'fg3PtAtt', 'fg3PtMade', 'ftAtt', 'ftMade', 'offReb', 'defReb', 'ast', 'pts', 'tov', 'stl', 'blk', 'blkAgainst', 'fouls', 'foulsDrawn', 'foulPers', 'foulPersDrawn', 'foulTech', 'foulTechDrawn', 'foulFlag1', 'foulFlag1Drawn', 'foulFlag2', 'foulFlag2Drawn', 'ejections', 'plusMinus', 'minSeconds', 'fpts']
 
     # build query using columns
     query = """select 
@@ -45,8 +45,8 @@ def main():
     rankings = {}
 
     # rankable columns indexed starting at 4
-    for colIndex in range(4, len(x[0])):
-
+    for colIndex in range(4, len(columns)+4):
+        print(len(columns), colIndex-4)
         columnName = columns[colIndex-4]
 
         # all columns are per game except for gameCount
@@ -54,36 +54,36 @@ def main():
             result.sort(key=lambda x: int(x[colIndex]), reverse=True)
         else:
             result.sort(key=lambda x: float(x[colIndex])/float(x[4]), reverse=True)
-        
+
         rankIndex = 1 # i.e. rankIndex of 4 means player was the 4th highest
 
         # set the rankings in the rankings dictionary
         for playerRow in result:
             playerId = playerRow[2]
-            
+            if playerId not in rankings:
+                rankings[playerId] = {}
             rankings[playerId][columnName] = rankIndex
             rankIndex += 1
-    
-    # the first part of the insert 
+
+    # the first part of the insert
     insert = "INSERT INTO player_ranking (playerId, uploadDate, "
-        for i in range(len(columns)-1):
-            insert += "rank_"+columns[i]+", "
-        insert+= "rank_"+columns[len(columns)-1]+") VALUES "
+    for i in range(len(columns)-1):
+        insert += "rank_"+columns[i]+", "
+    insert+= "rank_"+columns[len(columns)-1]+") VALUES "
 
     # add insert values for each player
     count = 0
     for playerId in rankings:
-        insert += "("
+        insert += "("+str(playerId)+", NOW(), "
         for i in range(len(columns)-1):
-            insert += rankings[playerId][columns[i]]+", "
-        insert += rankings[playerId][columns[i]]+")"
+            insert += str(rankings[playerId][columns[i]])+", "
+        insert += str(rankings[playerId][columns[i]])+")"
 
         # all except last should have a following comma
         if count < len(rankings)-1:
             insert += ", "
         count += 1
 
-    print(insert)
     db.execute(insert)
     conn.commit()
 
