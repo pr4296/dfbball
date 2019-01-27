@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+	#!/usr/bin/python3
 import requests
 import json
 import sys
@@ -45,9 +45,9 @@ def main():
     rankings = {}
 
     # rankable columns indexed starting at 4
-    for colIndex in range(4, len(columns)+4):
-        print(len(columns), colIndex-4)
-        columnName = columns[colIndex-4]
+    for colIndex in range(4, len(result[0])):
+
+        columnName = 'reb' if colIndex == len(result[0])-1 else columns[colIndex-4]
 
         # all columns are per game except for gameCount
         if colIndex == 4:
@@ -67,24 +67,25 @@ def main():
 
     # the first part of the insert
     insert = "INSERT INTO player_ranking (playerId, uploadDate, "
-    for i in range(len(columns)-1):
+    for i in range(len(columns)):
         insert += "rank_"+columns[i]+", "
-    insert+= "rank_"+columns[len(columns)-1]+") VALUES "
+    insert+= "rank_reb) VALUES "
 
     # add insert values for each player
     count = 0
     for playerId in rankings:
         insert += "("+str(playerId)+", NOW(), "
-        for i in range(len(columns)-1):
+        for i in range(len(columns)):
             insert += str(rankings[playerId][columns[i]])+", "
-        insert += str(rankings[playerId][columns[i]])+")"
+        insert += str(rankings[playerId]['reb'])+")"
 
         # all except last should have a following comma
         if count < len(rankings)-1:
             insert += ", "
         count += 1
-
     db.execute(insert)
+    deleteQuery = "delete from player_ranking where uploadDate < date_sub(now(), interval 1 minute)"
+    db.execute(deleteQuery)
     conn.commit()
 
 if __name__ == "__main__":
