@@ -3,8 +3,8 @@
     <p>Team {{ this.teamInfo.city }} {{ this.teamInfo.teamName }}</p>
     <p>Arena: {{ this.teamInfo.venueName }}</p>
     <div class="card-container">
+        <PlayerRankings :teamId="this.$route.params.id" ></PlayerRankings>
         <TeamUpcomingGames></TeamUpcomingGames>
-        <TeamRoster></TeamRoster>
     </div>
 </div>
 </template>
@@ -14,13 +14,13 @@
 import store from "@/store.js";
 import router from "@/router.js";
 import TeamUpcomingGames from "@/components/TeamUpcomingGames.vue";
-import TeamRoster from "@/components/TeamRoster.vue";
+import PlayerRankings from "@/components/PlayerRankings.vue";
 
 export default {
     name: "Team",
     components: {
         TeamUpcomingGames,
-        TeamRoster
+        PlayerRankings
     },
     computed: {
         teamInfo: function() {
