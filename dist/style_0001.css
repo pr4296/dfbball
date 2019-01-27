@@ -215,13 +215,13 @@ html, body {
     transition: 0.5s;
 }
 .mainLinkWrapper:hover {
-    background: rgba(0, 255, 136, 0.612);
+    background: rgb(245, 245, 245);
     transition: 0.5s;
     cursor: pointer;
 }
 .mainLinkWrapper:active {
     transition: 0.2s;
-    background: rgb(0, 255, 174);
+    background: rgb(230, 230, 230);
 }
 #navigation {
     margin: 20px;
@@ -334,7 +334,7 @@ html, body {
     border-bottom: none;
 }
 .gameRow:hover {
-    background: #fff70098;
+    background: #f4f4f4;
 }
 .teamRow {
     text-align: left;

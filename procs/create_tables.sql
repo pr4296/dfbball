@@ -291,12 +291,38 @@ CREATE TABLE game_lineup (
 );
 
 CREATE TABLE player_ranking (
-    rankingDate DATETIME NOT NULL,
     playerId INT NOT NULL,
-    overallRating INT,
-    offRating INT,
-    defRating INT,
-    PRIMARY KEY (playerId, rankingDate)
+    uploadDate DATETIME NOT NULL,
+    rank_gameCount INT,
+    rank_fg2PtAtt INT,
+    rank_fg2PtMade INT,
+    rank_fg3PtAtt INT,
+    rank_fg3PtMade INT,
+    rank_ftAtt INT,
+    rank_ftMade INT,
+    rank_offReb INT,
+    rank_defReb INT,
+    rank_ast INT,
+    rank_pts INT,
+    rank_tov INT,
+    rank_stl INT,
+    rank_blk INT,
+    rank_blkAgainst INT,
+    rank_fouls INT,
+    rank_foulsDrawn INT,
+    rank_foulPers INT,
+    rank_foulPersDrawn INT,
+    rank_foulTech INT,
+    rank_foulTechDrawn INT,
+    rank_foulFlag1 INT,
+    rank_foulFlag1Drawn INT,
+    rank_foulFlag2 INT,
+    rank_foulFlag2Drawn INT,
+    rank_ejections INT,
+    rank_plusMinus INT,
+    rank_minSeconds INT,
+    rank_fpts INT,
+    PRIMARY KEY (playerId, uploadDate)
 );
 
 CREATE TABLE play_by_play (

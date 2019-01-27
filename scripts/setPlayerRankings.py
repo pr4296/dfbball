@@ -13,60 +13,79 @@ import MySQLdb
 
 import api_utils as apiUtils
 
+# act as a procedure
 def main():
-    conn, db = apiUtils.getDbConnection('player', False)
-    query = "SELECT distinct id from player";
-    playerRankings = []
+    # connect to the db
+    conn, db = apiUtils.getDbConnection('player_season_totals', False)
+
+    # columns for all the rankable stats
+    columns = ['gameCount', 'fg2PtAtt', 'fg2PtMade', 'fg3PtAtt', 'fg3PtMade', 'ftAtt', 'ftMade', 'offReb', 'defReb', 'ast', 'pts', 'tov', 'stl', 'blk', 'blkAgainst', 'fouls', 'foulPers', 'foulsDrawn', 'foulPers', 'foulPersDrawn', 'foulTech', 'foulTechDrawn', 'foulFlag1', 'foulFlag1Drawn', 'foulFlag2', 'foulFlag2Drawn', 'ejections', 'plusMinus', 'minSeconds', 'fpts']
+
+    # build query using columns
+    query = """select 
+        p.firstName, 
+        p.lastName, 
+        pst.playerId,
+        pst.uploadDate,
+        """
+    for i in range(len(columns)):
+        query+= "pst."+columns[i]+", "
+    query += "(offReb+defReb) as reb "
+    query += """
+        from player_season_totals pst 
+        inner join player p 
+        on p.id = pst.playerId;""";
+
+    # store the query result in a 2d list
     db.execute(query)
-    result = db.fetchall()
-    for playerTuple in result:
-        playerId = playerTuple[0]
+    result = list(db)
 
-        query = "SELECT (pts+0.5*fg3PtMade+offReb*1.25-0.5*tov) as offScore, (defReb*1.25+stl*2+blk*2) as defScore from daily_player_box_stats d inner join game g on g.id = d.gameId where d.playerId="+str(playerId)+" and playedStatus='COMPLETED' order by g.startTime desc limit 25"
+    # rankings is a dictionary
+    # {playerId: {stat1: rank, stat2: rank ... }}
+    rankings = {}
 
-        db.execute(query)
-        bs = db.fetchall()
+    # rankable columns indexed starting at 4
+    for colIndex in range(4, len(x[0])):
 
-        offTotal = 0
-        defTotal = 0
-        count = 0
-        for row in bs:
-            # pts+ast*0.5+(offReb+defReb)*1.25+ast*1.5+stl*2+blk*2+to*-0.5
-            count += 1
-            offTotal += row[0]
-            defTotal += row[1]
-        if count > 0:
-            playerRankings.append({'id':playerId, 'offScore': round(offTotal/count), 'defScore': round(defTotal/count)})
+        columnName = columns[colIndex-4]
+
+        # all columns are per game except for gameCount
+        if colIndex == 4:
+            result.sort(key=lambda x: int(x[colIndex]), reverse=True)
+        else:
+            result.sort(key=lambda x: float(x[colIndex])/float(x[4]), reverse=True)
+        
+        rankIndex = 1 # i.e. rankIndex of 4 means player was the 4th highest
+
+        # set the rankings in the rankings dictionary
+        for playerRow in result:
+            playerId = playerRow[2]
+            
+            rankings[playerId][columnName] = rankIndex
+            rankIndex += 1
     
-    playerRankings.sort(key=lambda x: x['offScore'], reverse=True)
-    maxOff = playerRankings[0]['offScore']
-    for obj in playerRankings:
-        obj['offRating'] = round((obj['offScore']*50)/maxOff)+49
-    
-    playerRankings.sort(key=lambda x: x['defScore'], reverse=True)
-    maxDef = playerRankings[0]['defScore']
-    for obj in playerRankings:
-        obj['defRating'] = round(obj['defScore']*50/maxDef)+49
-    
-    playerRankings.sort(key=lambda x: x['offScore']+x['defScore'], reverse=True)
-    maxOverall = playerRankings[0]['offScore']+playerRankings[0]['defScore']
-    for obj in playerRankings:
-        obj['overallRating'] = round((obj['offScore']+obj['defScore'])*50/maxOverall)+49
+    # the first part of the insert 
+    insert = "INSERT INTO player_ranking (playerId, uploadDate, "
+        for i in range(len(columns)-1):
+            insert += "rank_"+columns[i]+", "
+        insert+= "rank_"+columns[len(columns)-1]+") VALUES "
 
-    for obj in playerRankings:
-        query = "INSERT INTO player_ranking (rankingDate, playerId, overallRating, offRating, defRating) VALUES (DATE(DATE_SUB(now(), INTERVAL 6 HOUR)), "+str(obj['id'])+", "+str(obj['overallRating'])+", "+str(obj['offRating'])+", "+str(obj['defRating'])+")"
+    # add insert values for each player
+    count = 0
+    for playerId in rankings:
+        insert += "("
+        for i in range(len(columns)-1):
+            insert += rankings[playerId][columns[i]]+", "
+        insert += rankings[playerId][columns[i]]+")"
 
-        db.execute(query)
-        conn.commit()
-    # CREATE TABLE player_ranking (
-    # rankingDate DATETIME NOT NULL,
-    # playerId INT NOT NULL,
-    # overallRating INT,
-    # offRating INT,
-    # defRating INT,
-    # PRIMARY KEY (playerId, rankingDate)
+        # all except last should have a following comma
+        if count < len(rankings)-1:
+            insert += ", "
+        count += 1
 
+    print(insert)
+    db.execute(insert)
+    conn.commit()
 
-# import doesn't run here
 if __name__ == "__main__":
    main()
