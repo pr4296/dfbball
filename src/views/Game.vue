@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <div class="card boxShadow">
+  <!-- <div class="card boxShadow">
     <div class="gameRow">
       <div class="scoreColumn">
         <div class="teamRow">
@@ -98,7 +98,8 @@
               <span class="statLabel">MIN</span>
           </div>
       </div>
-  </div>
+  </div> -->
+  <DailyTopPlayers :forTeam="this.$route.params.id"></DailyTopPlayers>
 </div>
 </template>
 

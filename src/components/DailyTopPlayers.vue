@@ -80,9 +80,18 @@ import router from "@/router.js";
 
 export default {
     name: "DailyTopPlayers",
+    props: {
+        forGame: {
+            type: Number, // game id
+            default: 0 // 0 means all teams
+        }
+    },
     computed: {
         players: function() {
             return store.state.apiDataDailyTopPlayers
+        },
+        urlParam: function() {
+            return this.$props.forTeam != 0 ? "?gameId="+this.$props.forTeam : "";
         }
     },
     methods: {
@@ -91,7 +100,7 @@ export default {
         },
         fetchTopPlayers: function() {
             // console.log('inside Team fetchTeam');
-            var url = 'https://pratyush.rustagi.cc/dfbball/api/todaysTopPlayers.php';
+            var url = 'https://pratyush.rustagi.cc/dfbball/api/todaysTopPlayers.php'+this.urlParam;
             // console.log(url);
             fetch(url)
                 .then(function(response) {return response.json()})
