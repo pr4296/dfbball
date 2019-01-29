@@ -32,7 +32,7 @@ if (isset($_GET['teamId'])) {
     }
 }
 
-$query = "select p.firstName, p.lastName, p.imgUrl, r.*, t.abbreviation, pst.* from player_ranking r inner join player p on p.id = r.playerId inner join team t on t.id = p.currentTeamId inner join player_season_totals pst on pst.playerId = p.id where uploadDate = (select max(uploadDate) from player_ranking)";
+$query = "select p.firstName, p.lastName, p.imgUrl, r.*, t.abbreviation, pst.* from player_ranking r inner join player p on p.id = r.playerId inner join team t on t.id = p.currentTeamId inner join player_season_totals pst on pst.playerId = p.id where r.uploadDate = (select max(prt.uploadDate) from player_ranking prt)";
 $result = $mysqli->query($query);
 
 $rows = [];
