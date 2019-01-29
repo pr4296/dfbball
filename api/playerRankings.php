@@ -15,7 +15,7 @@ if (isset($_GET['teamId'])) {
     $id = $_GET['teamId'];
     if (is_numeric($id)){
 
-        $query = "select p.firstName, p.lastName, p.imgUrl, r.*, t.abbreviation, pst.* from player_ranking r inner join player p on p.id = r.playerId inner join team t on t.id = p.currentTeamId inner join player_season_totals pst on pst.playerId = p.id where p.currentTeamId = ".((int)$id)+" and r.uploadDate = (select max(prt.uploadDate) from player_ranking prt)";
+        $query = "select p.firstName, p.lastName, p.imgUrl, r.*, t.abbreviation, pst.* from player_ranking r inner join player p on p.id = r.playerId inner join team t on t.id = p.currentTeamId inner join player_season_totals pst on pst.playerId = p.id where p.currentTeamId = ".((int)$id)." and r.uploadDate = (select max(prt.uploadDate) from player_ranking prt)";
 
         $result = $mysqli->query($query);
         
