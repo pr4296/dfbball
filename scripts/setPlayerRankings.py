@@ -74,7 +74,7 @@ def main():
     # add insert values for each player
     count = 0
     for playerId in rankings:
-        insert += "("+str(playerId)+", NOW(), "
+        insert += "("+str(playerId)+", DATE(NOW()), "
         for i in range(len(columns)):
             insert += str(rankings[playerId][columns[i]])+", "
         insert += str(rankings[playerId]['reb'])+")"
@@ -84,7 +84,7 @@ def main():
             insert += ", "
         count += 1
     db.execute(insert)
-    deleteQuery = "delete from player_ranking where uploadDate < date_sub(now(), interval 1 minute)"
+    deleteQuery = "delete from player_ranking where uploadDate < date_sub(now(), interval 24 HOUR)"
     db.execute(deleteQuery)
     conn.commit()
 

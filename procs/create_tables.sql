@@ -292,7 +292,7 @@ CREATE TABLE game_lineup (
 
 CREATE TABLE player_ranking (
     playerId INT NOT NULL,
-    uploadDate DATETIME NOT NULL,
+    uploadDate DATE NOT NULL,
     rank_gameCount INT,
     rank_fg2PtAtt INT,
     rank_fg2PtMade INT,
