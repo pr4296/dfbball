@@ -2,7 +2,7 @@
   <div class="container">
       <PicksView></PicksView>
       <CurrentGames></CurrentGames>
-      <DailyTopPlayers></DailyTopPlayers>
+      <DailyTopPlayers title="Recent Top Players"></DailyTopPlayers>
     </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <!-- <div class="card boxShadow">
+  <div class="card boxShadow">
     <div class="gameRow">
       <div class="scoreColumn">
         <div class="teamRow">
@@ -56,50 +56,9 @@
             {{ getGameStatus(game) }}
     </div>
   </div>
+  
   </div>
-  <div v-if="this.players.length > 0" class="card boxShadow">
-      <p class="card-header">Players</p>
-      <div 
-          class="card-row" 
-          style="display: flex; 
-              align-items: center; 
-              flex-direction: row;
-              height: 50px"
-          v-for="player in this.players" :key="player.playerId"
-          @click="goToPlayer(player.playerId)"
-          >
-          <img class="card-row-logo" 
-              :src="logoUrl(player.abbreviation)">
-          <div class="playerName">
-              <span 
-                  class="card-row-text"
-                  style="flex: 1 0 auto"> 
-                      <span style="font-size: 1.3em" class="b players-firstName">
-                          {{ player.firstName }} 
-                      </span>
-                      <span style="font-size: 1.3em" class="b players-firstNameInitial">
-                          {{ player.firstName.substring(0, 1)+"." }} 
-                      </span>
-                      <span style="font-size: 1.3em" class="b">
-                          {{ player.lastName }}
-                      </span>
-              </span>
-          </div>
-          <div class="players-fpts">
-              <span class="b">{{ player.fpts }} </span>
-              <span class="statLabel">FPTS</span>
-          </div>
-          <div class="players-pts">
-              <span class="b">{{ player.pts }} </span>
-              <span class="statLabel">PTS</span>
-          </div>
-          <div class="players-mins">
-              <span class="b">{{ convertToMinSec(player.minSeconds) }} </span>
-              <span class="statLabel">MIN</span>
-          </div>
-      </div>
-  </div> -->
-  <DailyTopPlayers :forTeam="this.$route.params.id"></DailyTopPlayers>
+  <DailyTopPlayers title="Game Top Players" :forGame="parseInt(this.$route.params.id)"></DailyTopPlayers>
 </div>
 </template>
 
@@ -108,9 +67,13 @@
 // @ is an alias to /src
 import store from "@/store.js";
 import router from "@/router.js";
+import DailyTopPlayers from "@/components/DailyTopPlayers.vue";
 
 export default {
     name: "game",
+    components: {
+        DailyTopPlayers
+    },
     computed: {
         players: function() {
             return store.state.apiDataGamePlayers.players

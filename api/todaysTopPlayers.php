@@ -17,7 +17,7 @@ if (isset($_GET['gameId'])) {
 
         //pts+ast*0.5+(offReb+defReb)*1.25+ast*1.5+stl*2+blk*2+to*-0.5
 
-        $query = "select * from player_daily d inner join player p on p.id = d.playerId inner join team t on t.id = d.playerTeamId where playerTeamId in (select awayTeamId as id from game where id = 48313 union select homeTeamId as id from game where id =  ".((int)$id).") ORDER BY fpts desc, minSeconds asc, plusMinus desc, fouls asc";
+        $query = "select * from player_daily d inner join player p on p.id = d.playerId inner join team t on t.id = d.playerTeamId where playerTeamId in (select awayTeamId as id from game where id = ".((int)$id)." union select homeTeamId as id from game where id =  ".((int)$id).") ORDER BY fpts desc, minSeconds asc, plusMinus desc, fouls asc";
 
         // echo $query;
         // exit(0);
@@ -30,7 +30,7 @@ if (isset($_GET['gameId'])) {
         }
 
         if (sizeof($rows) == 0) {
-            $query = "select * from player_season_totals pst inner join player p on p.id = pst.playerId inner join team t on t.id = pst.playerTeamId where playerTeamId in (select awayTeamId as id from game where id = 48313 union select homeTeamId as id from game where id =  ".((int)$id).") ORDER BY fpts desc, minSeconds asc, plusMinus desc, fouls asc";
+            $query = "select * from player_season_totals pst inner join player p on p.id = pst.playerId inner join team t on t.id = pst.playerTeamId where playerTeamId in (select awayTeamId as id from game where id = ".((int)$id)." union select homeTeamId as id from game where id =  ".((int)$id).") ORDER BY fpts desc, minSeconds asc, plusMinus desc, fouls asc";
 
             $result = $mysqli->query($query);
         

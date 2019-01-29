@@ -1,6 +1,6 @@
 <template>
     <div v-if="this.players.length > 0" class="card boxShadow">
-        <p class="card-header">Recent Top Players</p>
+        <p class="card-header">{{this.$props.title}}</p>
         <div 
             class="card-row" 
             style="display: flex; 
@@ -21,7 +21,7 @@
                             {{ player.firstName }} 
                         </span>
                         <span style="font-size: 1.3em" class="b players-firstNameInitial">
-                            {{ player.firstName.substring(0, 1)+"." }} 
+                            {{ player.firstName != undefined ? player.firstName.substring(0, 1)+"." : ""}} 
                         </span>
                         <span style="font-size: 1.3em" class="b">
                             {{ player.lastName }}
@@ -84,6 +84,9 @@ export default {
         forGame: {
             type: Number, // game id
             default: 0 // 0 means all teams
+        },
+        title: {
+            default: "Recent Top Players"
         }
     },
     computed: {
@@ -91,7 +94,7 @@ export default {
             return store.state.apiDataDailyTopPlayers
         },
         urlParam: function() {
-            return this.$props.forTeam != 0 ? "?gameId="+this.$props.forTeam : "";
+            return this.$props.forGame != 0 ? "?gameId="+this.$props.forGame : "";
         }
     },
     methods: {
@@ -99,7 +102,7 @@ export default {
             return Math.floor(minSeconds/60);
         },
         fetchTopPlayers: function() {
-            // console.log('inside Team fetchTeam');
+            console.log('inside Team fetchTeam', this.$props.forGame);
             var url = 'https://pratyush.rustagi.cc/dfbball/api/todaysTopPlayers.php'+this.urlParam;
             // console.log(url);
             fetch(url)
