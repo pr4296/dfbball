@@ -134,7 +134,7 @@ export default {
                 
             //     toRet = "color: #fff; font-weight: 600; "+toRet;
             // }
-            if (val > 35) console.log('toret',r,g);
+            //if (val > 35) console.log('toret',r,g);
             return toRet;
         }
     },

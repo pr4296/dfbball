@@ -56,7 +56,8 @@
                 </div>
             </div>
             <div class="gameStatus gray" v-bind:class="{ liveGameGreen: isGameLive(game) }"> 
-                    {{ getGameStatus(game) }}
+                    <div>{{ getGameStatus(game) }}</div>
+                    <div>{{ getLocalGameTime(game['startTime']) }}</div>
             </div>
             <div class="game-top-player-container">
                 <GameTopPlayer :gameIndex="index" :game="games"></GameTopPlayer>
@@ -154,11 +155,18 @@ export default {
         },
         fetchCurrentGames: function(dayDiff) {
             var url = 'https://pratyush.rustagi.cc/dfbball/api/currentGames.php?dayDiff='+dayDiff;
+            var t = this;
             fetch(url)
                 .then(function(response) {return response.json()})
                 .then(function(responseData) {
-                    // console.log(responseData);
-                    store.commit('setApiDataCurrentGames', responseData);
+                    if (responseData.length <= 2) {
+                        t.fetchCurrentGames(dayDiff-1);
+                        console.log('response data: ',responseData);
+                    }
+                    else {
+                        console.log('response data: ',responseData);
+                        store.commit('setApiDataCurrentGames', responseData);
+                    }
             });
         },
         fetchGameTopPlayers: function(gameId) {
@@ -176,7 +184,26 @@ export default {
         },
         goToTeam: function(teamId) {
             router.push('/team/'+teamId)
-        }
+        },
+        getLocalGameTime: function(date) {
+            console.log('date', date);
+            var utcDatePlusOffset = new Date(date);
+            var offset = utcDatePlusOffset.getTimezoneOffset();
+            var localDate = new Date(utcDatePlusOffset-offset*60*1000);
+            // return localDate;
+
+            var now = new Date();
+            var currDateUTC = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+            var gameDateUTC = new Date(localDate.getUTCFullYear(), localDate.getUTCMonth(), localDate.getUTCDate());
+
+            if (currDateUTC == gameDateUTC) return "Today";
+            if (currDateUTC - gameDateUTC < 24*60*60*1000 && currDateUTC > gameDateUTC) return "Yesterday ";
+            if (currDateUTC - gameDateUTC > -24*60*60*1000 && currDateUTC < gameDateUTC) return "Tomorrow ";
+            // console.log('at end');
+
+            localDate = (localDate.getMonth()+1)+'/'+(localDate.getDate())+'/'+(localDate.getYear()%100);
+            return localDate;
+        },
     },
     beforeRouteUpdate(to, from, next) {
         this.fetchCurrentGames(0);

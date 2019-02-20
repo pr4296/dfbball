@@ -387,6 +387,7 @@ html, body {
     width: 30px;
 }
 .gameStatus {
+    flex-direction: column;
     margin: auto;
     width: 150px;
     margin-right: 5px;
