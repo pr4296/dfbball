@@ -154,12 +154,13 @@ export default {
             return "https://pratyush.rustagi.cc/logos/"+teamAbbrv+".png";
         },
         fetchCurrentGames: function(dayDiff) {
+            console.log('dayDiff:',dayDiff);
             var url = 'https://pratyush.rustagi.cc/dfbball/api/currentGames.php?dayDiff='+dayDiff;
             var t = this;
             fetch(url)
                 .then(function(response) {return response.json()})
                 .then(function(responseData) {
-                    if (responseData.length <= 2) {
+                    if (responseData.length <= 0) {
                         t.fetchCurrentGames(dayDiff-1);
                         console.log('response data: ',responseData);
                     }
