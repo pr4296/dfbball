@@ -197,9 +197,9 @@ export default {
             var currDateUTC = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
             var gameDateUTC = new Date(localDate.getUTCFullYear(), localDate.getUTCMonth(), localDate.getUTCDate());
 
-            if (currDateUTC == gameDateUTC) return "Today";
+            /*if (currDateUTC == gameDateUTC) return "Today";
             if (currDateUTC - gameDateUTC < 24*60*60*1000 && currDateUTC > gameDateUTC) return "Yesterday ";
-            if (currDateUTC - gameDateUTC > -24*60*60*1000 && currDateUTC < gameDateUTC) return "Tomorrow ";
+            if (currDateUTC - gameDateUTC > -24*60*60*1000 && currDateUTC < gameDateUTC) return "Tomorrow ";*/
             // console.log('at end');
 
             localDate = (localDate.getMonth()+1)+'/'+(localDate.getDate())+'/'+(localDate.getYear()%100);
