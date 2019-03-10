@@ -1,0 +1,643 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Titillium+Web:400,600,700');
+
+html, body {
+    font-family: 'Titillium Web', sans-serif;
+    color: #444;
+}
+#view {
+    display: flex;
+    justify-content: center;
+}
+.playerCard {
+    background: #222; 
+    display: flex; 
+    flex-direction: row; 
+    border-radius: 5px
+}
+.playerCardImage {
+    width: 300px;
+}
+.playerPickDiv {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.playerSelect {
+    height: 30px;
+    margin-bottom: 10px;
+}
+.noGames {
+    margin: 10px;
+    background: rgb(255, 229, 196);
+}
+.activeGameRow *{
+    color: #000;
+}
+.unplayedGameRow *{
+    color: #aaa!important;
+}
+.grayImg {
+    opacity: 0.5;
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+    filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(100%);
+}
+.loginButton {
+    height: 30px;
+    min-width: 300px;
+    background: #278cff;
+    outline: none;
+    color: white;
+    border-radius: 3px;
+    font-weight: bold;
+    transition: 0.3s;
+    height: 40px;
+    font-size: 14px;
+    border: none;
+}
+.loginButton:hover {
+    background: #0077ff;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.loginButton:active {
+    background: #005fcc;
+    transition: 0.3s;
+}
+.btnLog {
+    margin-top: 56px;
+}
+.loginContainer {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+.errorMessage {
+    color: rgb(255, 88, 88);
+    font-size: 14px;
+    height: 30px;
+    font-weight: bold;
+}
+.loginInput {
+    height: 30px;
+    min-width: 300px;
+    margin-bottom: 20px;
+}
+#login {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.statBox {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: left;
+    margin: 10px;
+    width: 300px;
+}
+.allTeams {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin: auto;
+}
+.allTeamsLogo {
+    height: 100px;
+    cursor: pointer;
+}
+.allTeamsLogo:hover {
+    -webkit-filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.7));
+    filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.7));
+    transition: 0.2s 
+}
+.btnSearch {
+    color: #444;
+    height: 40px;
+    border-radius: 0 20px 20px 0;
+    outline: none;
+    background: #eee;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8em;
+    padding: 0 25px 0 25px;
+}
+.btnSearch:hover {
+    background: #ddd;
+    color: #000;
+}
+.btnSearch:active {
+    background: #ccc;
+    color: #000;
+}
+.blueOutline {
+    border: 2px solid #278cff;
+}
+/* .boxShadow {
+  box-shadow: 0px 16px 43px rgba(46, 38, 80, 0.29);
+  /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.boxShadowHover {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.boxShadowHover:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+} */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sticky {
+    text-align: center;
+    position:fixed;
+    padding: 5px;
+    top:0;
+    right: 0;
+    z-index:100;
+}
+.stickyHeader {
+    position:fixed;
+    background: #fff;
+    left: 0;
+    top:0;
+    width:100%;
+    z-index:100;
+    border-bottom: #eee solid 1px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+.hiddenLink, .hiddenLink:link, .hiddenLink:hover, .hiddenLink:focus, .hiddenLink:active {
+    text-decoration: none;
+    color: inherit;
+}
+.inpSearch {
+    font-weight: 700;
+    font-size: 0.8em;
+    color: #333;
+    background: #eee;
+    border: none;
+    height: 40px;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+    padding: 0 25px 0 25px;
+}
+.websiteIcon {
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
+    margin-left: 10px;
+}
+.websiteName {
+    font-size: 20px;
+    font-weight: 900;
+    margin-right: 10px;
+}
+.mainLink {
+    margin: 2px;
+    font-size: 1.2em;
+    text-decoration: none;
+    font-weight: 700;
+    color: rgb(46, 46, 46);
+}
+.mainLinkWrapper {
+    background: none;
+    padding: 5px;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+.mainLinkWrapper:hover {
+    background: rgb(245, 245, 245);
+    transition: 0.5s;
+    cursor: pointer;
+}
+.mainLinkWrapper:active {
+    transition: 0.2s;
+    background: rgb(230, 230, 230);
+}
+#navigation {
+    margin: 20px;
+}
+.search {
+    display: flex;
+    margin-bottom: 0;
+    min-width: 300px;
+}
+.card-row-logo {
+    width: 20px;
+    cursor: pointer;
+    margin: auto;
+    margin-left: 5px;
+    margin-right: 10px;
+    transition: 0.1s 
+}
+.card-row:hover {
+    background: #eee;
+}
+.card-row:active {
+    background: #ddd;
+}
+.card-row {
+    text-align: right;
+    font-size: 0.8em;
+    height: 40px;
+    padding: 0 15px 0 10px;
+    margin: 8px;
+    display: flex;
+    vertical-align: middle;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+.card-row:last-child {
+    border: none;
+}
+.card {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin: 10px;
+    display: inline-block;
+    background: #fff;
+    border-radius: 5px;
+}
+.card-header {
+    font-weight: 700;
+    text-align: center;
+    font-size: 20px;
+}
+.card-row-text {
+    margin: auto;
+    color: #222;
+}
+.b {
+    font-weight: 900;
+    color: #111;
+}
+.gray {
+    color: #555;
+}
+.playerPhoto {
+    height: 50px;
+    margin-top: 10px;
+}
+.websiteLogoAndName {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.game-top-player {
+    display: flex;
+    margin-left: 20px;
+    flex-direction: row;
+}
+.game-top-player-stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100px;
+}
+.player-name {
+    font-size: 10px;
+}
+.player-stat {
+
+}
+.gameRow {
+    text-align: center;
+    margin: 10px;;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    height: inherit;
+    border-bottom: 1px solid #ccc;
+}
+
+.teamRow {
+    height: 35px;
+}
+
+.gameRow:last-child {
+    border-bottom: none;
+}
+.gameRow:hover {
+    background: #f4f4f4;
+}
+.teamRow {
+    text-align: left;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+.teamRanking {
+    color: #555;
+}
+.logoWrapper {
+    width: 40px;
+    text-align: center;
+    margin-right: 10px;
+}
+.teamNameWrapper {
+    width: 250px;
+}
+.easternRankingBadge {
+    background: rgb(101, 117, 255);
+    border: 1px solid rgb(0, 26, 255);
+}
+.westernRankingBadge {
+    background: rgb(255, 73, 73); 
+    border: 1px solid rgb(207, 0, 0);
+}
+.rankingBadge {
+    color: #fff;
+    font-weight: 700;
+    padding: 1px;
+    font-size: 11px;
+    width: 15px;
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 20px;
+    font-family: 'ZCOOL QingKe HuangYou', sans-serif;
+}
+.spacer {
+    height: 60px;
+    width: 100%;
+}
+.teamRecord {
+    width: 50px;
+    font-size: 12px;
+    color: #555;
+}
+.teamScoreWrapper {
+    text-align: right;
+    width: 30px;
+}
+.gameStatus {
+    margin: auto;
+    width: 150px;
+    margin-right: 5px;
+}
+
+.liveGreen {
+    color: rgb(36, 170, 108);
+}
+tr:hover {
+    background: rgb(255, 253, 138);
+    color: #000;
+    cursor: pointer;
+}
+.standingsContainer {
+    display: flex;
+    justify-content: center;
+}
+table {
+    font-size: 12px;
+    font-family: 'Roboto Mono', monospace;
+    border-collapse: collapse;
+}
+th {
+    font-size: 12px;
+}
+td {
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: right;
+    font-size: 1.3em;
+}
+.headers {
+    margin: 10px;
+}
+.badge {
+    width: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 20px;
+}
+.borderGold {
+    color:rgb(228, 183, 87)
+}
+.borderSilver {
+    color: rgb(136, 136, 136)
+}
+.borderBronze {
+    color:rgb(190, 121, 89)
+}
+.borderEmerald {
+    color:rgb(35, 204, 120)
+}
+.borderRuby {
+    color:rgb(219, 38, 62)
+}
+.borderSapphire {
+    color:rgb(0, 81, 255)
+}
+.borderPinkDiamond {
+    color:rgb(12, 143, 0);
+    transition: 2s;
+}
+.liveGameGreen {
+    color: rgb(0, 182, 91);
+    font-weight: 900;
+}
+.game-top-player-container {
+    display: flex;
+    display: column;
+    align-items: center;
+}
+.statLabel {
+    color: #bbb;
+    font-size: 10px;
+}
+
+.boxscore-win {
+    color: rgb(0, 179, 74);
+    font-weight: bolder;
+}
+.boxscore-loss {
+    color: rgb(255, 58, 58);
+    font-weight: bolder;
+}
+
+.players-fpts, .players-pts, .players-reb, .players-ast, .players-stl,
+.players-blk, .players-tov, .players-foulPers, .players-plusMinus, .players-mins,
+.team-gamesback, .team-wins, .team-losses, .team-winpct, .team-overallrank {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    width: 50px;
+
+}
+
+.playerName, .team-name {
+    width: 227px;
+    text-align: left;
+}
+
+.topPlayerTinyCard {
+    background: #eee; 
+    display: flex; 
+    margin: 10px;
+    transition: 0.2s;
+}
+.topPlayerTinyCard:hover {
+    background: #ddd;
+    transition: 0.5s;
+}
+.topPlayerTinyCard:active {
+    background: #ccc;
+    transition: 0.5s;
+}
+
+@media only screen and (max-width: 680px) {
+    .playerPhoto, .players-stl, .players-blk {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .game-top-player-container, .boxscore-fg {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 475px) {
+    .teamRecord, .boxscore-stl, .boxscore-blk {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    .logoWrapper {
+        display: none;
+    }
+    .players-pts {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .teamNameWrapper {
+        width: 100px;
+    }
+    .teamCity, .players-foulPers {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .players-plusMinus {
+        display: none;
+    }
+    .stickyHeader {
+        height: 100px;
+    }
+    .headerLinks {
+        left: 0;
+        top: 50px;
+    }
+    .websiteLogoAndName {
+        display: none;
+    }
+    .spacer {
+        height: 120px;
+    }
+    .loginContainer {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 725px) {
+    .players-tov, .boxscore-ft {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .players-firstName, .team-winpct {
+        display: none;
+    }
+    .playerName {
+        width: 180px;
+    }
+    .inpSearch {
+        width: 100px;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .players-reb, .players-ast, .team-city {
+        display: none;
+    }
+    .team-name {
+        width: 120px;
+    }
+    .mainLink {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width: 575px) {
+    .players-firstNameInitial {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .standingsContainer {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 625px) {
+    .team-overallrank {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .playerCard {
+        flex-direction: column;
+    }
+    .boxscore-3pt {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .boxscore-fls {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .boxscore-pm {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .boxscore-tov {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .boxscore-min {
+        display: none;
+    }
+}
